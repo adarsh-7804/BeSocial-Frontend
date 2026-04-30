@@ -26,7 +26,7 @@ import RightPanel from "./RightPanel";
 import { useParams } from "react-router-dom";
 import FriendButton from "./FriendButton";
 import { FaUserEdit } from "react-icons/fa";
-import UserDatalist from "./UserDataList";
+import UserDatalist from "./UserDataList.jsx";
 import ImageCropperModal from "./ImageCropperModal";
 
 /* ── Google Fonts injected once ── */
