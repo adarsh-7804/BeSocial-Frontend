@@ -3,7 +3,7 @@ import userreducer from '../features/userSlice'
 import postsreducer from '../features/postsSlice'
 import draftsreducer from '../features/draftSlice'
 import scheduledPostReducer from '../features/scheduledPostSlice'
-import notificationReducer from "../features/notificationSlice.js";
+import notificationReducer from "../features/notificationSlice";
 import savedPostsReducer from "../features/savedPostsSlice";
 import feedReducer from "../features/feedSlice"
 import notInterestedReducer from "../features/notInterestedSlice"
