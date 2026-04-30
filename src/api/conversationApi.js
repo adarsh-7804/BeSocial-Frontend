@@ -17,7 +17,7 @@ API.interceptors.request.use((config) => {
 });
 
 export const getConversations = () =>
-  API.get("/conversation");
+  API.get("/");
 
 export const getArchivedConversations = () =>
   API.get("/conversation/archived");
