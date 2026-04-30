@@ -23,7 +23,7 @@ const socketMiddleware = (store) => (next) => (action) => {
     const token = store.getState().user?.token;
 
     if (token) {
-      socket = io("http://localhost:5000", {
+      socket = io(import.meta.env.VITE_SERVER_URL, {
         auth: { token },
         withCredentials: true,
       });

@@ -22,13 +22,13 @@ function MediaPreview({ media }) {
     <div className="relative w-full h-32 rounded-xl overflow-hidden bg-[#f5ede3] flex items-center justify-center">
       {first.type === "video" ? (
         <video
-          src={`http://localhost:5000/${first.url}`}
+          src={`${import.meta.env.VITE_SERVER_URL}/${first.url}`}
           className="w-full h-full object-cover"
           muted
         />
       ) : (
         <img
-          src={`http://localhost:5000/${first.url}`}
+          src={`${import.meta.env.VITE_SERVER_URL}/${first.url}`}
           alt="draft preview"
           className="w-full h-full object-cover"
         />

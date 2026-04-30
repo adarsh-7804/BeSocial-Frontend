@@ -25,14 +25,14 @@ function MediaPreview({ media }) {
     <div className="relative w-full h-32 rounded-xl overflow-hidden bg-[#f5ede3] flex items-center justify-center">
       {first.type === "video" ? (
         <video
-          src={`http://localhost:5000/${first.url}`}
-          poster={first.thumbnailUrl ? `http://localhost:5000/${first.thumbnailUrl}` : undefined}
+          src={`${import.meta.env.VITE_SERVER_URL}/${first.url}`}
+          poster={first.thumbnailUrl ? `${import.meta.env.VITE_SERVER_URL}/${first.thumbnailUrl}` : undefined}
           className="w-full h-full object-cover"
           muted
         />
       ) : (
         <img
-          src={`http://localhost:5000/${first.url}`}
+          src={`${import.meta.env.VITE_SERVER_URL}/${first.url}`}
           alt="saved post preview"
           className="w-full h-full object-cover"
         />
@@ -137,7 +137,7 @@ const SavedPostCard = ({ savedPost, onRemove, removing }) => {
           <img
             src={
               post.user?.avatar
-                ? `http://localhost:5000/${post.user.avatar.replace(/\\/g, "/")}`
+                ? `${import.meta.env.VITE_SERVER_URL}/${post.user.avatar.replace(/\\/g, "/")}`
                 : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
             }
             alt={displayName}

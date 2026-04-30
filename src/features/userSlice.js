@@ -223,7 +223,7 @@ export const cancelRequest = createAsyncThunk(
   "user/cancelRequest",
   async (userId, thunkAPI) => {
     try {
-      const res = await api.cancelFriendRequest(userId); // ← FIXED! Add 'api.'
+      const res = await api.cancelFriendRequest(userId); 
       return { userId, data: res.data };
     } catch (err) {
       return thunkAPI.rejectWithValue(

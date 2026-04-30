@@ -100,7 +100,7 @@ const RightPanel = () => {
                 <img
                   src={
                     user?.avatar
-                      ? `http://localhost:5000/${user.avatar}`
+                      ? `${import.meta.env.VITE_SERVER_URL}/${user.avatar}`
                       : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
                   }
                   alt={user.firstName}

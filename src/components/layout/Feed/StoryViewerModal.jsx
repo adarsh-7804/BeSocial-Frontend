@@ -26,7 +26,7 @@ function avatarUrl(user) {
     return "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg";
   return user.avatar.startsWith("http")
     ? user.avatar
-    : `http://localhost:5000/${user.avatar}`;
+    : `${import.meta.env.VITE_SERVER_URL}/${user.avatar}`;
 }
 
 function timeAgo(date) {
@@ -289,7 +289,7 @@ const StoryViewerModal = () => {
             ) : story.type === "video" ? (
               <video
                 key={story._id}
-                src={`http://localhost:5000/${story.mediaUrl}`}
+                src={`${import.meta.env.VITE_SERVER_URL}/${story.mediaUrl}`}
                 className="story-media"
                 autoPlay
                 onEnded={() => dispatch(nextStory())}
@@ -297,7 +297,7 @@ const StoryViewerModal = () => {
               />
             ) : (
               <img
-                src={`http://localhost:5000/${story.mediaUrl}`}
+                src={`${import.meta.env.VITE_SERVER_URL}/${story.mediaUrl}`}
                 alt="story"
                 className="story-media"
               />

@@ -276,7 +276,7 @@ const HighlightDetail = () => {
   const getMediaUrl = (mediaUrl) => {
     if (!mediaUrl) return "";
     if (mediaUrl.startsWith("http")) return mediaUrl;
-    return `http://localhost:5000/${mediaUrl}`;
+    return `${import.meta.env.VITE_SERVER_URL}/${mediaUrl}`;
   };
 
   const renderStoryMedia = () => {

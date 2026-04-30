@@ -223,7 +223,7 @@ const Gallary = () => {
                                 highlight.coverImage.startsWith("http") ||
                                 highlight.coverImage.startsWith("data:")
                                   ? highlight.coverImage
-                                  : `http://localhost:5000/${highlight.coverImage}`
+                                  : `${import.meta.env.VITE_SERVER_URL}/${highlight.coverImage}`
                               }
                               alt={highlight.title}
                               className="w-full h-full object-cover"

@@ -6,7 +6,7 @@ import "./style/stories.css";
 
 function avatarUrl(user) {
   if (!user?.avatar) return "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg";
-  return user.avatar.startsWith("http") ? user.avatar : `http://localhost:5000/${user.avatar}`;
+  return user.avatar.startsWith("http") ? user.avatar : `${import.meta.env.VITE_SERVER_URL}/${user.avatar}`;
 }
 
 const StoryFeed = () => {
@@ -60,7 +60,7 @@ const StoryFeed = () => {
                     </div>
                   ) : (
                     <img
-                      src={`http://localhost:5000/${latestStory.mediaUrl}`}
+                      src={`${import.meta.env.VITE_SERVER_URL}/${latestStory.mediaUrl}`}
                       alt=""
                       className="story-card-bg-img"
                     />

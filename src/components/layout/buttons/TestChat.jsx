@@ -391,7 +391,7 @@ export default function TestChat() {
     >
       {src ? (
         <img
-          src={`http://localhost:5000/${src}`}
+          src={`${import.meta.env.VITE_SERVER_URL}/${src}`}
           alt={name}
           className="w-full h-full object-cover"
         />
@@ -992,7 +992,7 @@ export default function TestChat() {
                       <div className="w-10 h-10 rounded-full bg-[#6c63ff] flex items-center justify-center text-white text-base shrink-0 overflow-hidden border border-[#6c63ff]">
                         {conv.groupProfilePic ? (
                           <img
-                            src={`http://localhost:5000${conv.groupProfilePic}`}
+                            src={`${import.meta.env.VITE_SERVER_URL}${conv.groupProfilePic}`}
                             alt={conv.groupName}
                             className="w-full h-full object-cover"
                           />
@@ -1063,7 +1063,7 @@ export default function TestChat() {
                     <div className="w-[38px] h-[38px] rounded-full bg-[#6c63ff] flex items-center justify-center text-white text-xl overflow-hidden border-2 border-[#6c63ff]">
                       {active?.groupProfilePic ? (
                         <img
-                          src={`http://localhost:5000${active.groupProfilePic}`}
+                          src={`${import.meta.env.VITE_SERVER_URL}${active.groupProfilePic}`}
                           alt="Group"
                           className="w-full h-full object-cover"
                         />
@@ -1387,14 +1387,14 @@ export default function TestChat() {
                                 {msg.replyTo.type === "image" &&
                                 msg.replyTo.mediaUrl ? (
                                   <img
-                                    src={`http://localhost:5000/${msg.replyTo.mediaUrl}`}
+                                    src={`${import.meta.env.VITE_SERVER_URL}/${msg.replyTo.mediaUrl}`}
                                     alt="replied image"
                                     className="h-10 w-10 object-cover rounded"
                                   />
                                 ) : msg.replyTo.type === "video" &&
                                   msg.replyTo.mediaUrl ? (
                                   <video
-                                    src={`http://localhost:5000/${msg.replyTo.mediaUrl}`}
+                                    src={`${import.meta.env.VITE_SERVER_URL}/${msg.replyTo.mediaUrl}`}
                                     className="h-10 w-10 object-cover rounded"
                                   />
                                 ) : msg.replyTo.type === "file" ? (
@@ -1415,7 +1415,7 @@ export default function TestChat() {
                               {msg.replyToStory.type === "image" &&
                                 msg.replyToStory.mediaUrl && (
                                   <img
-                                    src={`http://localhost:5000/${msg.replyToStory.mediaUrl}`}
+                                    src={`${import.meta.env.VITE_SERVER_URL}/${msg.replyToStory.mediaUrl}`}
                                     alt="story"
                                     className="h-12 w-12 object-cover rounded mt-1"
                                   />
@@ -1452,12 +1452,12 @@ export default function TestChat() {
                               </span>
                             ) : msg.type === "image" && msg.mediaUrl ? (
                               <img
-                                src={`http://localhost:5000/${msg.mediaUrl}`}
+                                src={`${import.meta.env.VITE_SERVER_URL}/${msg.mediaUrl}`}
                                 alt="shared image"
                                 className="max-w-full max-h-[300px] rounded-xl object-cover cursor-pointer"
                                 onClick={() =>
                                   window.open(
-                                    `http://localhost:5000/${msg.mediaUrl}`,
+                                    `${import.meta.env.VITE_SERVER_URL}/${msg.mediaUrl}`,
                                     "_blank",
                                   )
                                 }
@@ -1465,13 +1465,13 @@ export default function TestChat() {
                               />
                             ) : msg.type === "video" && msg.mediaUrl ? (
                               <video
-                                src={`http://localhost:5000/${msg.mediaUrl}`}
+                                src={`${import.meta.env.VITE_SERVER_URL}/${msg.mediaUrl}`}
                                 className="max-w-full max-h-[300px] rounded-xl object-cover"
                                 controls
                               />
                             ) : msg.type === "file" && msg.mediaUrl ? (
                               <a
-                                href={`http://localhost:5000/${msg.mediaUrl}`}
+                                href={`${import.meta.env.VITE_SERVER_URL}/${msg.mediaUrl}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-block px-3 py-1.5 rounded-xl bg-[#f1f5f9] text-[#4B2E2B] text-[7px] no-underline border border-[#e2e8f0]"
@@ -1735,7 +1735,7 @@ export default function TestChat() {
                         <div className="w-9 h-9 rounded-full bg-[#6c63ff] flex items-center justify-center text-white text-base shrink-0 overflow-hidden border border-[#6c63ff]">
                           {conv.groupProfilePic ? (
                             <img
-                              src={`http://localhost:5000${conv.groupProfilePic}`}
+                              src={`${import.meta.env.VITE_SERVER_URL}${conv.groupProfilePic}`}
                               alt={conv.groupName}
                               className="w-full h-full object-cover"
                             />
@@ -1878,7 +1878,7 @@ export default function TestChat() {
                         <div className="w-9 h-9 rounded-full bg-[#6c63ff] flex items-center justify-center text-white text-base shrink-0 overflow-hidden border border-[#6c63ff]">
                           {conv.groupProfilePic ? (
                             <img
-                              src={`http://localhost:5000${conv.groupProfilePic}`}
+                              src={`${import.meta.env.VITE_SERVER_URL}${conv.groupProfilePic}`}
                               alt={conv.groupName}
                               className="w-full h-full object-cover"
                             />
@@ -1941,7 +1941,7 @@ export default function TestChat() {
                       <div className="w-9 h-9 rounded-full bg-[#6c63ff] flex items-center justify-center text-white text-base shrink-0 overflow-hidden border border-[#6c63ff]">
                         {conv.groupProfilePic ? (
                           <img
-                            src={`http://localhost:5000${conv.groupProfilePic}`}
+                            src={`${import.meta.env.VITE_SERVER_URL}${conv.groupProfilePic}`}
                             alt={conv.groupName}
                             className="w-full h-full object-cover"
                           />

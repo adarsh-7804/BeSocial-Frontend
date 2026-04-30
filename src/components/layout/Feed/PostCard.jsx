@@ -306,7 +306,7 @@ const PostCard = ({ post }) => {
 
     try {
       const apiBaseUrl =
-        import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+        import.meta.env.VITE_API_BASE_URL ;
       console.log(
         ` Sending view request for post ${post._id} with duration ${duration}s (Visible)`,
       );
@@ -489,12 +489,12 @@ const PostCard = ({ post }) => {
   const getMediaUrl = (mediaItem) => {
     if (mediaItem?.image?.medium) {
       const path = mediaItem.image.medium;
-      return `http://localhost:5000/${path.replace(/\\/g, "/")}`;
+      return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
     }
     
     if (mediaItem?.image?.full) {
       const path = mediaItem.image.full;
-      return `http://localhost:5000/${path.replace(/\\/g, "/")}`;
+      return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
     }
 
     if(mediaItem?.video?.variants) {
@@ -503,7 +503,7 @@ const PostCard = ({ post }) => {
       const videoPath = variants["720p"] || variants["360p"] || variants["1080p"]
 
       if(videoPath) {
-        return `http://localhost:5000/${videoPath.replace(/\\/g, "/")}`
+        return `${import.meta.env.VITE_SERVER_URL}/${videoPath.replace(/\\/g, "/")}`
       }
     }
 
@@ -511,11 +511,11 @@ const PostCard = ({ post }) => {
 
     if (mediaItem?.video?.thumbnail) {
       const path = mediaItem.video.thumbnail;
-      return `http://localhost:5000/${path.replace(/\\/g, "/")}`;
+      return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
     }
 
     if (mediaItem?.url) {
-      return `http://localhost:5000/${mediaItem.url.replace(/\\/g, "/")}`;
+      return `${import.meta.env.VITE_SERVER_URL}/${mediaItem.url.replace(/\\/g, "/")}`;
     }
 
     return "";
@@ -541,9 +541,9 @@ const PostCard = ({ post }) => {
 
     if (isVideo) {
       const thumbnailUrl = mediaItem?.video?.thumbnail 
-        ? `http://localhost:5000/${mediaItem.video.thumbnail.replace(/\\/g, "/")}` 
+        ? `${import.meta.env.VITE_SERVER_URL}/${mediaItem.video.thumbnail.replace(/\\/g, "/")}` 
         : mediaItem?.thumbnailUrl
-        ?  `http://localhost:5000/${mediaItem.thumbnailUrl}` 
+        ?  `${import.meta.env.VITE_SERVER_URL}/${mediaItem.thumbnailUrl}` 
         : url;
       
       const availableQualities = mediaItem?.video?.variants 
@@ -673,7 +673,7 @@ const PostCard = ({ post }) => {
       if (newSrc) {
         const currentTime = videoRef.current.currentTime;
         const wasPlaying = !videoRef.current.paused;
-        videoRef.current.src = `http://localhost:5000/${newSrc.replace(/\\/g, "/")}`;
+        videoRef.current.src = `${import.meta.env.VITE_SERVER_URL}/${newSrc.replace(/\\/g, "/")}`;
         videoRef.current.currentTime = currentTime;
         if (wasPlaying) {
           videoRef.current.play().catch((err) => console.log("Auto-play prevented", err));
@@ -718,7 +718,7 @@ const PostCard = ({ post }) => {
             <img
               src={
                 post.user?.avatar
-                  ? `http://localhost:5000/${post.user.avatar.replace(/\\/g, "/")}`
+                  ? `${import.meta.env.VITE_SERVER_URL}/${post.user.avatar.replace(/\\/g, "/")}`
                   : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
               }
               className="w-10 h-10 rounded-full object-cover border-2 border-amber-600 block"
@@ -1364,7 +1364,7 @@ const PostCard = ({ post }) => {
                         <img
                           src={
                             r.user?.avatar
-                              ? `http://localhost:5000/${r.user.avatar.replace(/\\/g, "/")}`
+                              ? `${import.meta.env.VITE_SERVER_URL}/${r.user.avatar.replace(/\\/g, "/")}`
                               : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
                           }
                           className="w-9 h-9 rounded-full object-cover border-2 border-amber-200"

@@ -1,9 +1,10 @@
 import axios from "axios";
+import API from "./axios";
 
-const API = axios.create({
-  baseURL: "http://localhost:5000/api/stories",
-  withCredentials: true,
-});
+// const API = axios.create({
+//   baseURL: "http://localhost:5000/api/stories",
+//   withCredentials: true,
+// });
 
 // Interceptor
 API.interceptors.request.use((req) => {
@@ -18,47 +19,47 @@ API.interceptors.request.use((req) => {
 
 // Create Story
 export const createStory = (formdata) => 
-  API.post("/create", formdata, {
+  API.post("/stories/create", formdata, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 
 // Get Stories Feed
-export const getStories = () => API.get("/");
+export const getStories = () => API.get("/stories/");
 
 // Get User's Stories
-export const getUserStories = (userId) => API.get(`/user/${userId}`);
+export const getUserStories = (userId) => API.get(`/stories/user/${userId}`);
 
 // Mark Story as Viewed
-export const viewStory = (storyId) => API.put(`/${storyId}/view`);
+export const viewStory = (storyId) => API.put(`/stories/${storyId}/view`);
 
 // Get Story Viewers
-export const getStoryViewers = (storyId) => API.get(`/${storyId}/viewers`);
+export const getStoryViewers = (storyId) => API.get(`/stories/${storyId}/viewers`);
 
 // Delete Story
-export const deleteStory = (storyId) => API.delete(`/${storyId}`);
+export const deleteStory = (storyId) => API.delete(`/stories/${storyId}`);
 
 // Like Story
 export const likeStory = (storyId, reactionType = "like") =>
-  API.post(`/${storyId}/like`, { reactionType });
+  API.post(`/stories/${storyId}/like`, { reactionType });
 
 // Unlike Story
-export const unlikeStory = (storyId) => API.delete(`/${storyId}/like`);
+export const unlikeStory = (storyId) => API.delete(`/stories/${storyId}/like`);
 
 // Reply to Story
 export const replyToStory = (storyId, text) =>
-  API.post(`/${storyId}/reply`, { text });
+  API.post(`/stories/${storyId}/reply`, { text });
 
 // Get Story Replies
-export const getStoryReplies = (storyId) => API.get(`/${storyId}/replies`);
+export const getStoryReplies = (storyId) => API.get(`/stories/${storyId}/replies`);
 
 // Delete Reply
 export const deleteReply = (storyId, replyId) =>
-  API.delete(`/${storyId}/reply/${replyId}`);
+  API.delete(`/stories/${storyId}/reply/${replyId}`);
 
 // Mute User Stories
 export const muteUserStories = (userId) =>
-  API.post(`/mute/${userId}`);
+  API.post(`/stories/mute/${userId}`);
 
 // Unmute User Stories
 export const unmuteUserStories = (userId) =>
-  API.delete(`/mute/${userId}`);
+  API.delete(`/stories/mute/${userId}`);

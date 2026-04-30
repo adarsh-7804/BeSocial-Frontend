@@ -121,7 +121,7 @@ const RecentConversations = () => {
             if (path.startsWith("http")) return path;
             // Ensure there is a / between the domain and the path
             const cleanPath = path.startsWith("/") ? path : `/${path}`;
-            return `http://localhost:5000${cleanPath}`;
+            return `${import.meta.env.VITE_SERVER_URL}${cleanPath}`;
           };
 
           const finalUrl = getFullUrl(avatarPath);

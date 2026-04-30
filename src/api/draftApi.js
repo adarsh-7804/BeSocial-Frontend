@@ -1,9 +1,10 @@
 import axios from "axios";
+import API from "./axios";
 
-const API = axios.create({
-    baseURL: "http://localhost:5000/api/draft",
-    withCredentials: true
-})
+// const API = axios.create({
+//     baseURL: "http://localhost:5000/api/draft",
+//     withCredentials: true
+// })
 
 // INTERCEPTOR
 
@@ -18,19 +19,19 @@ API.interceptors.request.use((req) => {
 })
 
 export const fetchDrafts = () =>
-  API.get("/", {
+  API.get("/draft/", {
     headers: {
       "Cache-Control": "no-cache",
     },
   });
 
 export const saveDraft = (formData) => 
-    API.post("/save" , formData,{
+    API.post("/draft/save" , formData,{
         headers:{"Content-Type" : "multipart/form-data"},
     });
 
 export const deleteDraft = (draftId) => 
-    API.delete(`/${draftId}`)
+    API.delete(`/draft/${draftId}`)
 
 
-export const publishDraft = (draftId) => API.post(`/${draftId}/publish`);
+export const publishDraft = (draftId) => API.post(`/draft/${draftId}/publish`);
