@@ -20,16 +20,16 @@ export const getConversations = () =>
   API.get("/");
 
 export const getArchivedConversations = () =>
-  API.get("/conversation/archived");
+  API.get("/archived");
 
 export const muteConversation = (conversationId) =>
-  API.post("/conversation/mute", { conversationId });
+  API.post("/mute", { conversationId });
 
 export const unmuteConversation = (conversationId) =>
-  API.post("/conversation/unmute", { conversationId });
+  API.post("/unmute", { conversationId });
 
 export const archiveConversation = (conversationId) =>
-  API.post("/conversation/archive", { conversationId });
+  API.post("/archive", { conversationId });
 
 export const unarchiveConversation = (conversationId) =>
-  API.post("/conversation/unarchive", { conversationId });
+  API.post("/unarchive", { conversationId });
