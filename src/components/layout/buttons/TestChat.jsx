@@ -618,7 +618,7 @@ export default function TestChat() {
       } else {
         toast.error(
           "Failed to upload profile picture: " +
-            (result.payload || "Unknown error"),
+          (result.payload || "Unknown error"),
         );
       }
     } catch (err) {
@@ -968,8 +968,8 @@ export default function TestChat() {
               <div className="text-xs text-[#666] mb-1">Original message:</div>
               <div className="text-sm text-[#333] truncate">
                 {forwardingMessage.type === "image" ||
-                forwardingMessage.type === "video" ||
-                forwardingMessage.type === "file"
+                  forwardingMessage.type === "video" ||
+                  forwardingMessage.type === "file"
                   ? `📎 ${forwardingMessage.content || forwardingMessage.type}`
                   : forwardingMessage.content}
               </div>
@@ -1224,14 +1224,13 @@ export default function TestChat() {
                   const isMe = (msg.sender?._id ?? msg.sender) === user?._id;
                   const isRead = Array.isArray(msg.readBy)
                     ? msg.readBy.some(
-                        (r) => r.user?.toString() !== user._id.toString(),
-                      )
+                      (r) => r.user?.toString() !== user._id.toString(),
+                    )
                     : false;
                   return (
                     <div
-                      className={`flex w-full mb-3 ${
-                        isMe ? "justify-end" : "justify-start"
-                      }`}
+                      className={`flex w-full mb-3 ${isMe ? "justify-end" : "justify-start"
+                        }`}
                     >
                       <div
                         className="relative flex items-end gap-1.5 max-w-[75%]"
@@ -1376,25 +1375,24 @@ export default function TestChat() {
                               className={` inline-block max-w-[60%] mb-[-4px] px-2.5 py-1 text-[11px] rounded-t-md border-l-[3px] border-[#6366f1] bg-[#BE8C63]`}
                             >
                               <div
-                                className={`font-bold ${
-                                  isMe ? "text-[#c7d2fe]" : "text-[#6366f1]"
-                                }`}
+                                className={`font-bold ${isMe ? "text-[#c7d2fe]" : "text-[#6366f1]"
+                                  }`}
                               >
                                 {msg.replyTo.sender?.firstName}
                               </div>
 
                               <div className="opacity-85 whitespace-nowrap overflow-hidden text-ellipsis">
                                 {msg.replyTo.type === "image" &&
-                                msg.replyTo.mediaUrl ? (
+                                  msg.replyTo.mediaUrl ? (
                                   <img
-                                    src={`${import.meta.env.VITE_SERVER_URL}/${msg.replyTo.mediaUrl}`}
+                                    src={getImageUrl(msg.replyTo.mediaUrl)}
                                     alt="replied image"
                                     className="h-10 w-10 object-cover rounded"
                                   />
                                 ) : msg.replyTo.type === "video" &&
                                   msg.replyTo.mediaUrl ? (
                                   <video
-                                    src={`${import.meta.env.VITE_SERVER_URL}/${msg.replyTo.mediaUrl}`}
+                                    src={getImageUrl(msg.replyTo.mediaUrl)}
                                     className="h-10 w-10 object-cover rounded"
                                   />
                                 ) : msg.replyTo.type === "file" ? (
@@ -1415,7 +1413,7 @@ export default function TestChat() {
                               {msg.replyToStory.type === "image" &&
                                 msg.replyToStory.mediaUrl && (
                                   <img
-                                    src={`${import.meta.env.VITE_SERVER_URL}/${msg.replyToStory.mediaUrl}`}
+                                    src={getImageUrl(msg.replyToStory.mediaUrl)}
                                     alt="story"
                                     className="h-12 w-12 object-cover rounded mt-1"
                                   />
@@ -1437,9 +1435,8 @@ export default function TestChat() {
                           )}
 
                           <div
-                            className={`inline-block  ${
-                              active.isGroup ? "bg-[#f8fafc]  rounded-2xl " : ""
-                            }`}
+                            className={`inline-block  ${active.isGroup ? "bg-[#f8fafc]  rounded-2xl " : ""
+                              }`}
                           >
                             {msg.isDeleted ? (
                               <span
@@ -1452,12 +1449,12 @@ export default function TestChat() {
                               </span>
                             ) : msg.type === "image" && msg.mediaUrl ? (
                               <img
-                                src={`${import.meta.env.VITE_SERVER_URL}/${msg.mediaUrl}`}
+                                src={getImageUrl(msg.mediaUrl)}
                                 alt="shared image"
                                 className="max-w-full max-h-[300px] rounded-xl object-cover cursor-pointer"
                                 onClick={() =>
                                   window.open(
-                                    `${import.meta.env.VITE_SERVER_URL}/${msg.mediaUrl}`,
+                                    getImageUrl(msg.mediaUrl),
                                     "_blank",
                                   )
                                 }
@@ -1465,13 +1462,13 @@ export default function TestChat() {
                               />
                             ) : msg.type === "video" && msg.mediaUrl ? (
                               <video
-                                src={`${import.meta.env.VITE_SERVER_URL}/${msg.mediaUrl}`}
+                                src={getImageUrl(msg.mediaUrl)}
                                 className="max-w-full max-h-[300px] rounded-xl object-cover"
                                 controls
                               />
                             ) : msg.type === "file" && msg.mediaUrl ? (
                               <a
-                                href={`${import.meta.env.VITE_SERVER_URL}/${msg.mediaUrl}`}
+                                href={getImageUrl(msg.mediaUrl)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-block px-3 py-1.5 rounded-xl bg-[#f1f5f9] text-[#4B2E2B] text-[7px] no-underline border border-[#e2e8f0]"
