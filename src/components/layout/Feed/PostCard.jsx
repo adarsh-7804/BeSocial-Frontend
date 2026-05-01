@@ -23,7 +23,11 @@ import {
   selectSavingPostId,
 } from "../../../features/savedPostsSlice";
 import { useEffect, useState, useRef, useMemo } from "react";
-import { AiOutlineEllipsis, AiOutlineEye, AiOutlinePushpin } from "react-icons/ai";
+import {
+  AiOutlineEllipsis,
+  AiOutlineEye,
+  AiOutlinePushpin,
+} from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
 import { CiHeart, CiChat1, CiShare2, CiBookmark } from "react-icons/ci";
 import { MdEmojiEmotions } from "react-icons/md";
@@ -50,8 +54,8 @@ import {
   undoNotInterestedThunk,
   selectIsPostHidden,
 } from "../../../features/notInterestedSlice";
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 const calculateAge = (dob) => {
   if (!dob) return 0;
@@ -83,7 +87,7 @@ const renderTextWithMentions = (text, mentions, navigate) => {
   return parts.map((part, i) => {
     if (!part.startsWith("@")) return part;
 
-    const nameKey = part.slice(1).trim().toLowerCase(); 
+    const nameKey = part.slice(1).trim().toLowerCase();
     const userId = mentionMap[nameKey];
 
     if (!userId) return part;
@@ -161,7 +165,7 @@ const PostCard = ({ post }) => {
   const [comment, setComment] = useState("");
   const [showComments, setShowComments] = useState(false);
   const [reply, setReply] = useState("");
-  const [replyingTo, setReplyingTo] = useState(null); 
+  const [replyingTo, setReplyingTo] = useState(null);
   const [replyingToReply, setReplyingToReply] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -175,15 +179,13 @@ const PostCard = ({ post }) => {
   const [selectedQuality, setSelectedQuality] = useState("720p");
   const [showQualityMenu, setShowQualityMenu] = useState(false);
 
-
   const videoRef = useRef(null);
   const containerRef = useRef(null);
   const [viewReported, setViewReported] = useState(false);
   const [isVideoVisible, setIsVideoVisible] = useState(false);
   const viewTimerRef = useRef(null);
 
-  useEffect(() => {
-  }, [post.mentions]);
+  useEffect(() => {}, [post.mentions]);
 
   useEffect(() => {
     setViewReported(false);
@@ -201,7 +203,7 @@ const PostCard = ({ post }) => {
           } else {
             setIsVideoVisible(false);
             console.log(`Video ${post._id} is now HIDDEN from viewport`);
-            
+
             if (videoRef.current) {
               videoRef.current.pause();
             }
@@ -211,7 +213,7 @@ const PostCard = ({ post }) => {
       {
         threshold: 0.5,
         rootMargin: "0px",
-      }
+      },
     );
 
     const container = containerRef.current;
@@ -294,7 +296,9 @@ const PostCard = ({ post }) => {
 
   const reportView = async (duration) => {
     if (!isVideoVisible) {
-      console.log(`View NOT reported - Video ${post._id} is NOT visible in viewport`);
+      console.log(
+        `View NOT reported - Video ${post._id} is NOT visible in viewport`,
+      );
       return;
     }
 
@@ -305,8 +309,7 @@ const PostCard = ({ post }) => {
     }
 
     try {
-      const apiBaseUrl =
-        import.meta.env.VITE_API_BASE_URL ;
+      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
       console.log(
         ` Sending view request for post ${post._id} with duration ${duration}s (Visible)`,
       );
@@ -351,7 +354,6 @@ const PostCard = ({ post }) => {
     setReplyingTo(null);
     setReplyingToReply(null);
   };
-
 
   const handleReplyClick = (commentId, user, replyId = null) => {
     const mention = `@${user.firstName} ${user.lastName} `;
@@ -486,37 +488,61 @@ const PostCard = ({ post }) => {
 
   const getDate = (date) => new Date(date).toLocaleDateString();
 
+  // const getMediaUrl = (mediaItem) => {
+  //   if (mediaItem?.image?.medium) {
+  //     const path = mediaItem.image.medium;
+  //     return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
+  //   }
+
+  //   if (mediaItem?.image?.full) {
+  //     const path = mediaItem.image.full;
+  //     return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
+  //   }
+
+  //   if(mediaItem?.video?.variants) {
+  //     const variants = mediaItem.video.variants;
+
+  //     const videoPath = variants["720p"] || variants["360p"] || variants["1080p"]
+
+  //     if(videoPath) {
+  //       return `${import.meta.env.VITE_SERVER_URL}/${videoPath.replace(/\\/g, "/")}`
+  //     }
+  //   }
+
+  //   if (mediaItem?.video?.thumbnail) {
+  //     const path = mediaItem.video.thumbnail;
+  //     return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
+  //   }
+
+  //   if (mediaItem?.url) {
+  //     return `${import.meta.env.VITE_SERVER_URL}/${mediaItem.url.replace(/\\/g, "/")}`;
+  //   }
+
+  //   return "";
+  // };
+
   const getMediaUrl = (mediaItem) => {
-    if (mediaItem?.image?.medium) {
-      const path = mediaItem.image.medium;
+    if (!mediaItem) return "";
+
+    const toUrl = (path) => {
+      if (!path) return null;
+      if (path.startsWith("http://") || path.startsWith("https://"))
+        return path;
       return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
+    };
+
+    if (mediaItem?.image?.medium) return toUrl(mediaItem.image.medium);
+    if (mediaItem?.image?.full) return toUrl(mediaItem.image.full);
+    if (mediaItem?.image?.thumbnail) return toUrl(mediaItem.image.thumbnail);
+
+    if (mediaItem?.video?.variants) {
+      const v = mediaItem.video.variants;
+      const videoPath = v["720p"] || v["360p"] || v["1080p"];
+      if (videoPath) return toUrl(videoPath);
     }
-    
-    if (mediaItem?.image?.full) {
-      const path = mediaItem.image.full;
-      return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
-    }
+    if (mediaItem?.video?.thumbnail) return toUrl(mediaItem.video.thumbnail);
 
-    if(mediaItem?.video?.variants) {
-      const variants = mediaItem.video.variants;
-
-      const videoPath = variants["720p"] || variants["360p"] || variants["1080p"]
-
-      if(videoPath) {
-        return `${import.meta.env.VITE_SERVER_URL}/${videoPath.replace(/\\/g, "/")}`
-      }
-    }
-
-    
-
-    if (mediaItem?.video?.thumbnail) {
-      const path = mediaItem.video.thumbnail;
-      return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
-    }
-
-    if (mediaItem?.url) {
-      return `${import.meta.env.VITE_SERVER_URL}/${mediaItem.url.replace(/\\/g, "/")}`;
-    }
+    if (mediaItem?.url) return toUrl(mediaItem.url);
 
     return "";
   };
@@ -540,18 +566,28 @@ const PostCard = ({ post }) => {
     const isGif = mediaItem?.type === "gif";
 
     if (isVideo) {
-      const thumbnailUrl = mediaItem?.video?.thumbnail 
-        ? `${import.meta.env.VITE_SERVER_URL}/${mediaItem.video.thumbnail.replace(/\\/g, "/")}` 
+      const toUrl = (path) => {
+        if (!path) return null;
+        if (path.startsWith("http://") || path.startsWith("https://")) return path;
+        return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
+      };
+      const thumbnailUrl = mediaItem?.video?.thumbnail
+        ? toUrl(mediaItem.video.thumbnail)
         : mediaItem?.thumbnailUrl
-        ?  `${import.meta.env.VITE_SERVER_URL}/${mediaItem.thumbnailUrl}` 
+        ? toUrl(mediaItem.thumbnailUrl)
         : url;
-      
-      const availableQualities = mediaItem?.video?.variants 
-        ? Object.keys(mediaItem.video.variants).sort((a, b) => parseInt(b) - parseInt(a))
+
+      const availableQualities = mediaItem?.video?.variants
+        ? Object.keys(mediaItem.video.variants).sort(
+            (a, b) => parseInt(b) - parseInt(a),
+          )
         : [];
-      
-      console.log("Video render:", { hasThumb: !!mediaItem?.thumbnailUrl, thumbnailUrl });
-      
+
+      console.log("Video render:", {
+        hasThumb: !!mediaItem?.thumbnailUrl,
+        thumbnailUrl,
+      });
+
       return (
         <div key={index} className="relative w-full h-full group">
           <video
@@ -565,10 +601,10 @@ const PostCard = ({ post }) => {
             onPlay={() => handlePlayVideo(post._id)}
             onTimeUpdate={(e) => {
               const currentTime = e.currentTarget.currentTime;
-              
+
               if (currentTime >= 2 && !viewReported && isVideoVisible) {
                 console.log(
-                  `⏱️ Video reached ${currentTime}s and is VISIBLE - reporting view`
+                  `⏱️ Video reached ${currentTime}s and is VISIBLE - reporting view`,
                 );
                 reportView(currentTime);
                 setViewReported(true);
@@ -578,7 +614,7 @@ const PostCard = ({ post }) => {
               console.log(" Video paused");
             }}
           />
-          
+
           {availableQualities.length > 1 && (
             <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-30">
               <button
@@ -587,7 +623,7 @@ const PostCard = ({ post }) => {
               >
                 ⚙️ {selectedQuality}
               </button>
-              
+
               {showQualityMenu && (
                 <div className="absolute top-full right-0 mt-2 bg-black/90 rounded-lg overflow-hidden shadow-lg min-w-[100px] cursor-pointer">
                   {availableQualities.map((quality) => (
@@ -613,12 +649,12 @@ const PostCard = ({ post }) => {
 
     return (
       // <Zoom>
-        <img
-          key={index}
-          src={url}
-          alt={`post ${index + 1}`}
-          className="w-full h-full object-cover"
-        />
+      <img
+        key={index}
+        src={url}
+        alt={`post ${index + 1}`}
+        className="w-full h-full object-cover"
+      />
       // </Zoom>
     );
   };
@@ -673,10 +709,15 @@ const PostCard = ({ post }) => {
       if (newSrc) {
         const currentTime = videoRef.current.currentTime;
         const wasPlaying = !videoRef.current.paused;
-        videoRef.current.src = `${import.meta.env.VITE_SERVER_URL}/${newSrc.replace(/\\/g, "/")}`;
+        const src = newSrc.startsWith("http://") || newSrc.startsWith("https://")
+              ? newSrc
+              : `${import.meta.env.VITE_SERVER_URL}/${newSrc.replace(/\\/g, "/")}`;
+            videoRef.current.src = src;
         videoRef.current.currentTime = currentTime;
         if (wasPlaying) {
-          videoRef.current.play().catch((err) => console.log("Auto-play prevented", err));
+          videoRef.current
+            .play()
+            .catch((err) => console.log("Auto-play prevented", err));
         }
         console.log(`Switched to ${quality}p quality`);
       }
@@ -700,8 +741,7 @@ const PostCard = ({ post }) => {
     return found || post;
   }, [posts, post._id]);
 
-  useEffect(() => {
-  }, [updatedPost]);
+  useEffect(() => {}, [updatedPost]);
 
   const cleanCaption = removeHashtags(post.caption);
   const cleanContent = removeHashtags(post.content);
@@ -769,7 +809,11 @@ const PostCard = ({ post }) => {
           <button
             onClick={() => setShowMenu(!showMenu)}
             disabled={post.allowDownload === false}
-            title={post.allowDownload === false ? "Downloads are blocked on this post" : ""}
+            title={
+              post.allowDownload === false
+                ? "Downloads are blocked on this post"
+                : ""
+            }
             className={`bg-transparent border-none p-1.5 rounded-lg text-xl transition-colors flex items-center ${
               post.allowDownload === false
                 ? "text-gray-400 cursor-not-allowed opacity-50"
@@ -833,8 +877,6 @@ const PostCard = ({ post }) => {
         </div>
       </div>
 
-     
-
       <div className="relative">
         <div className={isRestricted ? "blur-md pointer-events-none" : ""}>
           {/*  CONTENT */}
@@ -852,10 +894,7 @@ const PostCard = ({ post }) => {
                 </div>
               )}
 
-          
-
               {/* MEDIA */}
-              
 
               {post.media && post.media.length > 0 && (
                 <div
@@ -869,8 +908,7 @@ const PostCard = ({ post }) => {
                   {/* DOWNLOAD BLOCKED OVERLAY */}
                   {post.allowDownload === false && (
                     <div className="absolute h-[2vw] w-[10%] left-[90%] top-[87%]  inset-0  flex flex-col items-center justify-center z-40 cursor-not-allowed">
-                      <div className="text-center">
-                      </div>
+                      <div className="text-center"></div>
                     </div>
                   )}
 
@@ -907,7 +945,6 @@ const PostCard = ({ post }) => {
                   </div>
                 </div>
               )}
-
             </>
           )}
 
@@ -989,13 +1026,11 @@ const PostCard = ({ post }) => {
                 }`}
                 style={{ lineHeight: 1 }}
               >
-                {
-                  myReaction ? (
-                    reactionEmojis[myReaction] 
-                  ) : (
-                    <CiHeart className="text-amber-900" />
-                  ) 
-                }
+                {myReaction ? (
+                  reactionEmojis[myReaction]
+                ) : (
+                  <CiHeart className="text-amber-900" />
+                )}
               </span>
             </button>
           </div>
@@ -1205,7 +1240,6 @@ const PostCard = ({ post }) => {
               alt="me"
               className="w-8 h-8 rounded-full object-cover border-2 border-[#C08552] flex-shrink-0"
             />
-            
 
             <div className="relative flex-1">
               {/* Emoji Icon */}
