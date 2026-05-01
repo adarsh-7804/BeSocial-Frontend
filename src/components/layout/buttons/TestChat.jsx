@@ -385,22 +385,49 @@ export default function TestChat() {
     dispatch(unpinMessage({ messageId, conversationId: active._id }));
   };
 
-  const Avatar = ({ src, name, size = 36 }) => (
-    <div
-      style={{ width: size, height: size, fontSize: size * 0.45 }}
-      className="rounded-full bg-[#bbb] overflow-hidden shrink-0 flex items-center justify-center"
-    >
-      {src ? (
-        <img
-          src={`${import.meta.env.VITE_SERVER_URL}/${src}`}
-          alt={name}
-          className="w-full h-full object-cover"
-        />
-      ) : (
-        name?.[0]?.toUpperCase()
-      )}
-    </div>
-  );
+  const getFullUrl = (path) => {
+    if (!path) return null;
+
+    if (
+      path.startsWith("http://") ||
+      path.startsWith("https://") ||
+      path.startsWith("blob:")
+    ) {
+      return path;
+    }
+
+    const cleanPath = path.replace(/\\/g, "/");
+    const finalPath = cleanPath.startsWith("/")
+      ? cleanPath
+      : `/${cleanPath}`;
+
+    return `${import.meta.env.VITE_SERVER_URL}${finalPath}`;
+  };
+
+  const Avatar = ({ src, name, size = 36 }) => {
+    const avatarUrl = getFullUrl(src);
+    return (
+      <div
+        style={{ width: size, height: size, fontSize: size * 0.45 }}
+        className="rounded-full bg-[#bbb] overflow-hidden shrink-0 flex items-center justify-center"
+      >
+        {avatarUrl ? (
+          <img
+            src={avatarUrl}
+            alt={name}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src =
+                "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg";
+            }}
+          />
+        ) : (
+          name?.[0]?.toUpperCase()
+        )}
+      </div>
+    );
+  };
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -1733,10 +1760,15 @@ export default function TestChat() {
                         <div className="w-9 h-9 rounded-full bg-[#6c63ff] flex items-center justify-center text-white text-base shrink-0 overflow-hidden border border-[#6c63ff]">
                           {conv.groupProfilePic ? (
                             <img
-                              src={`${import.meta.env.VITE_SERVER_URL}${conv.groupProfilePic}`}
-                              alt={conv.groupName}
-                              className="w-full h-full object-cover"
-                            />
+                      src={finalUrl}
+                      alt="avatar"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src =
+                          "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg";
+                      }}
+                    />
                           ) : (
                             <span>#</span>
                           )}
