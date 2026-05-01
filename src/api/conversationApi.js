@@ -17,19 +17,19 @@ API.interceptors.request.use((config) => {
 });
 
 export const getConversations = () =>
-  API.get("/");
+  API.get("/conversation");
 
 export const getArchivedConversations = () =>
-  API.get("/archived");
+  API.get("/conversation/archived");
 
 export const muteConversation = (conversationId) =>
-  API.post("/mute", { conversationId });
+  API.post("/conversation/mute", { conversationId });
 
 export const unmuteConversation = (conversationId) =>
-  API.post("/unmute", { conversationId });
+  API.post("/conversation/unmute", { conversationId });
 
 export const archiveConversation = (conversationId) =>
-  API.post("/archive", { conversationId });
+  API.post("/conversation/archive", { conversationId });
 
 export const unarchiveConversation = (conversationId) =>
-  API.post("/unarchive", { conversationId });
+  API.post("/conversation/unarchive", { conversationId });
