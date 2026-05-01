@@ -25,14 +25,14 @@ function MediaPreview({ media }) {
     <div className="relative w-full h-32 rounded-xl overflow-hidden bg-[#f5ede3] flex items-center justify-center">
       {first.type === "video" ? (
         <video
-          src={`${import.meta.env.VITE_SERVER_URL}/${first.url}`}
-          poster={first.thumbnailUrl ? `${import.meta.env.VITE_SERVER_URL}/${first.thumbnailUrl}` : undefined}
+          src={first.url?.startsWith("http") ? first.url : `${import.meta.env.VITE_SERVER_URL}/${first.url}`}
+          poster={first.thumbnailUrl ? (first.thumbnailUrl.startsWith("http") ? first.thumbnailUrl : `${import.meta.env.VITE_SERVER_URL}/${first.thumbnailUrl}`) : undefined}
           className="w-full h-full object-cover"
           muted
         />
       ) : (
         <img
-          src={`${import.meta.env.VITE_SERVER_URL}/${first.url}`}
+          src={first.url?.startsWith("http") ? first.url : `${import.meta.env.VITE_SERVER_URL}/${first.url}`}
           alt="saved post preview"
           className="w-full h-full object-cover"
         />
@@ -137,16 +137,11 @@ const SavedPostCard = ({ savedPost, onRemove, removing }) => {
           <img
             src={
               post.user?.avatar
-                ? `${import.meta.env.VITE_SERVER_URL}/${post.user.avatar.replace(/\\/g, "/")}`
+                ? (post.user.avatar.startsWith("http")
+                  ? post.user.avatar
+                  : `${import.meta.env.VITE_SERVER_URL}/${post.user.avatar.replace(/\\/g, "/")}`)
                 : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
             }
-            //             src={
-            //   post.user?.avatar
-            //     ? (post.user.avatar.startsWith("http") 
-            //         ? post.user.avatar 
-            //         : `${import.meta.env.VITE_SERVER_URL}/${post.user.avatar.replace(/\\/g, "/")}`)
-            //     : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
-            // }
             alt={displayName}
             className="w-6 h-6 rounded-full object-cover border border-[#E1BC9C]"
           />

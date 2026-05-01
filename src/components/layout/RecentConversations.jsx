@@ -20,7 +20,7 @@ const getConvDisplayName = (conv, currentUserId) => {
 };
 
 const getConvAvatar = (conv, currentUserId) => {
-  if (conv.isGroup || !currentUserId) return null; 
+  if (conv.isGroup || !currentUserId) return null;
   const otherParticipant = conv.participants?.find((p) => {
     const pId = (p?._id || p)?.toString();
     return pId !== currentUserId.toString();
@@ -116,12 +116,31 @@ const RecentConversations = () => {
 
           const avatarPath = getConvAvatar(conv, user?._id);
 
+          // const getFullUrl = (path) => {
+          //   if (!path) return null;
+          //   if (path.startsWith("http")) return path;
+          //   // Ensure there is a / between the domain and the path
+          //   const cleanPath = path.startsWith("/") ? path : `/${path}`;
+          //   return `${import.meta.env.VITE_SERVER_URL}${cleanPath}`;
+          // };
+
           const getFullUrl = (path) => {
             if (!path) return null;
-            if (path.startsWith("http")) return path;
-            // Ensure there is a / between the domain and the path
-            const cleanPath = path.startsWith("/") ? path : `/${path}`;
-            return `${import.meta.env.VITE_SERVER_URL}${cleanPath}`;
+
+            if (
+              path.startsWith("http://") ||
+              path.startsWith("https://") ||
+              path.startsWith("blob:")
+            ) {
+              return path;
+            }
+
+            const cleanPath = path.replace(/\\/g, "/");
+            const finalPath = cleanPath.startsWith("/")
+              ? cleanPath
+              : `/${cleanPath}`;
+
+            return `${import.meta.env.VITE_SERVER_URL}${finalPath}`;
           };
 
           const finalUrl = getFullUrl(avatarPath);
@@ -135,7 +154,7 @@ const RecentConversations = () => {
               className="border-b border-[#F4E8DC] px-4 py-3 cursor-pointer hover:bg-[#FFF0E6] transition-colors duration-200 flex items-start gap-3"
             >
               {/* Avatar */}
-           
+
 
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 rounded-full bg-[#C08552] flex items-center justify-center text-white shadow-sm overflow-hidden">
@@ -196,9 +215,8 @@ const RecentConversations = () => {
                     return (
                       <div className="text-[9px] text-[#999] mt-1 flex items-center gap-1">
                         <div
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            isOnline ? "bg-green-500" : "bg-[#ccc]"
-                          }`}
+                          className={`w-1.5 h-1.5 rounded-full ${isOnline ? "bg-green-500" : "bg-[#ccc]"
+                            }`}
                         />
                         {isOnline
                           ? "Online"

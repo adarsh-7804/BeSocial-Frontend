@@ -60,7 +60,7 @@ const StoryFeed = () => {
                     </div>
                   ) : (
                     <img
-                      src={`${import.meta.env.VITE_SERVER_URL}/${latestStory.mediaUrl}`}
+                      src={latestStory.mediaUrl.startsWith("http") ? latestStory.mediaUrl : `${import.meta.env.VITE_SERVER_URL}/${latestStory.mediaUrl}`}
                       alt=""
                       className="story-card-bg-img"
                     />

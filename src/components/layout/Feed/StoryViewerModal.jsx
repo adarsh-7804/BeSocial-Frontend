@@ -289,7 +289,7 @@ const StoryViewerModal = () => {
             ) : story.type === "video" ? (
               <video
                 key={story._id}
-                src={`${import.meta.env.VITE_SERVER_URL}/${story.mediaUrl}`}
+                src={story.mediaUrl.startsWith("http") ? story.mediaUrl : `${import.meta.env.VITE_SERVER_URL}/${story.mediaUrl}`}
                 className="story-media"
                 autoPlay
                 onEnded={() => dispatch(nextStory())}
@@ -297,7 +297,7 @@ const StoryViewerModal = () => {
               />
             ) : (
               <img
-                src={`${import.meta.env.VITE_SERVER_URL}/${story.mediaUrl}`}
+                src={story.mediaUrl.startsWith("http") ? story.mediaUrl : `${import.meta.env.VITE_SERVER_URL}/${story.mediaUrl}`}
                 alt="story"
                 className="story-media"
               />
