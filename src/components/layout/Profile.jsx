@@ -11,6 +11,7 @@ import {
   unfriend,
 } from "../../features/userSlice";
 import SideBar from "./SideBar";
+import { getImageUrl } from "../../utils/getImageUrl";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getProfile,
@@ -167,14 +168,8 @@ export default function Profile() {
   //     : `${import.meta.env.VITE_SERVER_URL}/${profile.avatar}`
   //   : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg";
 
-  const toUrl = (path) => {
-    if (!path) return null;
-    if (path.startsWith("blob:") || path.startsWith("http://") || path.startsWith("https://")) return path;
-    return `${import.meta.env.VITE_SERVER_URL}/${path}`;
-};
- 
-const coverSrc = toUrl(profile?.coverImage) || "https://i.pinimg.com/1200x/30/66/b1/3066b18fbb5757089bcfe86525c335b7.jpg";
-const avatarSrc = toUrl(profile?.avatar) || "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg";
+const coverSrc = getImageUrl(profile?.coverImage, "https://i.pinimg.com/1200x/30/66/b1/3066b18fbb5757089bcfe86525c335b7.jpg");
+const avatarSrc = getImageUrl(profile?.avatar);
 
   const tags = profile?.tags || [];
 

@@ -20,13 +20,10 @@ import { CiHeart } from "react-icons/ci";
 import "./style/stories.css";
 import { fetchHighlights } from "../../../features/highlightSlice";
 import HighlightSelectorModal from "../Highlights/HighlightSelectorModal";
+import { getImageUrl } from "../../../utils/getImageUrl";
 
 function avatarUrl(user) {
-  if (!user?.avatar)
-    return "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg";
-  return user.avatar.startsWith("http")
-    ? user.avatar
-    : `${import.meta.env.VITE_SERVER_URL}/${user.avatar}`;
+  return getImageUrl(user?.avatar);
 }
 
 function timeAgo(date) {
@@ -289,7 +286,7 @@ const StoryViewerModal = () => {
             ) : story.type === "video" ? (
               <video
                 key={story._id}
-                src={story.mediaUrl.startsWith("http") ? story.mediaUrl : `${import.meta.env.VITE_SERVER_URL}/${story.mediaUrl}`}
+                src={getImageUrl(story.mediaUrl)}
                 className="story-media"
                 autoPlay
                 onEnded={() => dispatch(nextStory())}
@@ -297,7 +294,7 @@ const StoryViewerModal = () => {
               />
             ) : (
               <img
-                src={story.mediaUrl.startsWith("http") ? story.mediaUrl : `${import.meta.env.VITE_SERVER_URL}/${story.mediaUrl}`}
+                src={getImageUrl(story.mediaUrl)}
                 alt="story"
                 className="story-media"
               />

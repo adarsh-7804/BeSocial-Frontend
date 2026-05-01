@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStories, setActiveStoryGroup } from "../../../features/storySlice";
 import { selectUser } from "../../../features/userSlice";
+import { getImageUrl } from "../../../utils/getImageUrl";
 import "./style/stories.css";
 
 function avatarUrl(user) {
-  if (!user?.avatar) return "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg";
-  return user.avatar.startsWith("http") ? user.avatar : `${import.meta.env.VITE_SERVER_URL}/${user.avatar}`;
+  return getImageUrl(user?.avatar);
 }
 
 const StoryFeed = () => {

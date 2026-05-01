@@ -9,6 +9,7 @@
 // import { setFeedType } from "../../../features/feedSlice";
 // import StoryFeed from "./StoryFeed";
 // import StoryViewerModal from "./StoryViewerModal";
+import { getImageUrl } from "../../../utils/getImageUrl";
 
 // import Zoom from 'react-medium-image-zoom'
 // import 'react-medium-image-zoom/dist/styles.css'
@@ -731,13 +732,7 @@ const Feed = () => {
               {/* Top row */}
               <div className="flex items-center gap-2 sm:gap-3">
                 <img
-                  src={
-                    currentUser?.avatar
-                      ? (currentUser.avatar.startsWith("http") || currentUser.avatar.startsWith("blob:")
-                        ? currentUser.avatar
-                        : `${import.meta.env.VITE_SERVER_URL}/${currentUser.avatar}`)
-                      : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
-                  }
+                  src={getImageUrl(currentUser?.avatar)}
                   alt="avatar"
                   className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-[#C08552] flex-shrink-0"
                 />

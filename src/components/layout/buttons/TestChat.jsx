@@ -56,6 +56,7 @@ import {
 } from "react-icons/fa";
 import { ImPushpin } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import { getImageUrl } from "../../../utils/getImageUrl";
 
 export default function TestChat() {
   const dispatch = useDispatch();

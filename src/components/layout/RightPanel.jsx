@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSuggestions } from "../../features/userSlice";
 import FriendButton from "./FriendButton";
 import { useNavigate } from "react-router-dom";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 const TRENDING = [
   "#BeSocial",
@@ -98,13 +99,7 @@ const RightPanel = () => {
                 style={{ display: "flex", alignItems: "center", gap: 10 }}
               >
                 <img
-                  src={
-                    user?.avatar
-                      ? (user.avatar.startsWith("http") || user.avatar.startsWith("blob:")
-                        ? user.avatar
-                        : `${import.meta.env.VITE_SERVER_URL}/${user.avatar}`)
-                      : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
-                  }
+                  src={getImageUrl(user?.avatar)}
                   alt={user.firstName}
                   onClick={() => navigate(`/profile/${user._id}`)}
                   style={{

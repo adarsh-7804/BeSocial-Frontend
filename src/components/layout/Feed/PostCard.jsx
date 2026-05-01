@@ -1,4 +1,5 @@
 import { selectUser } from "../../../features/userSlice";
+import { getImageUrl } from "../../../utils/getImageUrl";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleLike,
@@ -524,25 +525,18 @@ const PostCard = ({ post }) => {
   const getMediaUrl = (mediaItem) => {
     if (!mediaItem) return "";
 
-    const toUrl = (path) => {
-      if (!path) return null;
-      if (path.startsWith("http://") || path.startsWith("https://"))
-        return path;
-      return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
-    };
-
-    if (mediaItem?.image?.medium) return toUrl(mediaItem.image.medium);
-    if (mediaItem?.image?.full) return toUrl(mediaItem.image.full);
-    if (mediaItem?.image?.thumbnail) return toUrl(mediaItem.image.thumbnail);
+    if (mediaItem?.image?.medium) return getImageUrl(mediaItem.image.medium);
+    if (mediaItem?.image?.full) return getImageUrl(mediaItem.image.full);
+    if (mediaItem?.image?.thumbnail) return getImageUrl(mediaItem.image.thumbnail);
 
     if (mediaItem?.video?.variants) {
       const v = mediaItem.video.variants;
       const videoPath = v["720p"] || v["360p"] || v["1080p"];
-      if (videoPath) return toUrl(videoPath);
+      if (videoPath) return getImageUrl(videoPath);
     }
-    if (mediaItem?.video?.thumbnail) return toUrl(mediaItem.video.thumbnail);
+    if (mediaItem?.video?.thumbnail) return getImageUrl(mediaItem.video.thumbnail);
 
-    if (mediaItem?.url) return toUrl(mediaItem.url);
+    if (mediaItem?.url) return getImageUrl(mediaItem.url);
 
     return "";
   };
@@ -566,16 +560,10 @@ const PostCard = ({ post }) => {
     const isGif = mediaItem?.type === "gif";
 
     if (isVideo) {
-      const toUrl = (path) => {
-        if (!path) return null;
-        if (path.startsWith("http://") || path.startsWith("https://"))
-          return path;
-        return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
-      };
       const thumbnailUrl = mediaItem?.video?.thumbnail
-        ? toUrl(mediaItem.video.thumbnail)
+        ? getImageUrl(mediaItem.video.thumbnail)
         : mediaItem?.thumbnailUrl
-          ? toUrl(mediaItem.thumbnailUrl)
+          ? getImageUrl(mediaItem.thumbnailUrl)
           : url;
 
       const availableQualities = mediaItem?.video?.variants
@@ -758,13 +746,7 @@ const PostCard = ({ post }) => {
         >
           <div className="relative">
             <img
-              src={
-                post.user?.avatar
-                  ? post.user.avatar.startsWith("http")
-                    ? post.user.avatar
-                    : `${import.meta.env.VITE_SERVER_URL}/${post.user.avatar.replace(/\\/g, "/")}`
-                  : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
-              }
+              src={getImageUrl(post.user?.avatar)}
               className="w-10 h-10 rounded-full object-cover border-2 border-amber-600 block"
             />
             <div className="absolute bottom-0.5 right-0.5 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-white" />
@@ -1400,13 +1382,7 @@ const PostCard = ({ post }) => {
                     <div className="flex items-center gap-3">
                       <div className="relative">
                         <img
-                          src={
-                            r.user?.avatar
-                              ? r.user.avatar.startsWith("http")
-                                ? r.user.avatar
-                                : `${import.meta.env.VITE_SERVER_URL}/${r.user.avatar.replace(/\\/g, "/")}`
-                              : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
-                          }
+                          src={getImageUrl(r.user?.avatar)}
                           className="w-9 h-9 rounded-full object-cover border-2 border-amber-200"
                           alt=""
                         />

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getImageUrl } from "../../utils/getImageUrl";
 import { CiImageOn, CiVideoOn, CiTrash } from "react-icons/ci";
 import { BsFileEarmarkText } from "react-icons/bs";
 import { FaBookmark } from "react-icons/fa6";
@@ -25,14 +26,14 @@ function MediaPreview({ media }) {
     <div className="relative w-full h-32 rounded-xl overflow-hidden bg-[#f5ede3] flex items-center justify-center">
       {first.type === "video" ? (
         <video
-          src={first.url?.startsWith("http") ? first.url : `${import.meta.env.VITE_SERVER_URL}/${first.url}`}
-          poster={first.thumbnailUrl ? (first.thumbnailUrl.startsWith("http") ? first.thumbnailUrl : `${import.meta.env.VITE_SERVER_URL}/${first.thumbnailUrl}`) : undefined}
+          src={getImageUrl(first.url)}
+          poster={getImageUrl(first.thumbnailUrl, null)}
           className="w-full h-full object-cover"
           muted
         />
       ) : (
         <img
-          src={first.url?.startsWith("http") ? first.url : `${import.meta.env.VITE_SERVER_URL}/${first.url}`}
+          src={getImageUrl(first.url)}
           alt="saved post preview"
           className="w-full h-full object-cover"
         />
@@ -135,13 +136,7 @@ const SavedPostCard = ({ savedPost, onRemove, removing }) => {
         {/* Author info */}
         <div className="flex items-center gap-2 mb-2">
           <img
-            src={
-              post.user?.avatar
-                ? (post.user.avatar.startsWith("http")
-                  ? post.user.avatar
-                  : `${import.meta.env.VITE_SERVER_URL}/${post.user.avatar.replace(/\\/g, "/")}`)
-                : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
-            }
+            src={getImageUrl(post.user?.avatar)}
             alt={displayName}
             className="w-6 h-6 rounded-full object-cover border border-[#E1BC9C]"
           />

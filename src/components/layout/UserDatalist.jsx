@@ -6,6 +6,7 @@ import { getMutualConnections, selectUser } from "../../features/userSlice";
 import { getProfile } from "../../features/userSlice";
 import FriendButton from "./FriendButton";
 import  PostCard  from "../layout/Feed/PostCard"
+import { getImageUrl } from "../../utils/getImageUrl";
 
 const Ic = ({ d, size = 14, color = "currentColor", sw = 2 }) => (
   <svg
@@ -134,12 +135,7 @@ export default function UserDatalist({ profile }) {
   const isMutual = (userId) =>
     mutualIds.has(userId?._id?.toString() || userId?.toString());
 
-  const avatar = (user) =>
-    user?.avatar
-      ? (user.avatar.startsWith("http") || user.avatar.startsWith("blob:")
-        ? user.avatar
-        : `${import.meta.env.VITE_SERVER_URL}/${user.avatar}`)
-      : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg";
+  const avatar = (user) => getImageUrl(user?.avatar);
 
   const stats = [
     { label: "No. of Posts", val: posts.length, key: "posts", icon: GRID },

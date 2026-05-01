@@ -2,13 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../../features/userSlice";
 import { fetchPollVoters } from "../../../../api/postsApi";   
+import { getImageUrl } from "../../../../utils/getImageUrl";
 
 function avatarSrc(user) {
-  if (!user?.avatar)
-    return "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg";
-  return user.avatar.startsWith("blob:") || user.avatar.startsWith("http")
-    ? user.avatar
-    : `${import.meta.env.VITE_SERVER_URL}/${user.avatar}`;
+  return getImageUrl(user?.avatar);
 }
 
 //  Voter Modal 
