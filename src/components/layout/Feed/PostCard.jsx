@@ -568,14 +568,15 @@ const PostCard = ({ post }) => {
     if (isVideo) {
       const toUrl = (path) => {
         if (!path) return null;
-        if (path.startsWith("http://") || path.startsWith("https://")) return path;
+        if (path.startsWith("http://") || path.startsWith("https://"))
+          return path;
         return `${import.meta.env.VITE_SERVER_URL}/${path.replace(/\\/g, "/")}`;
       };
       const thumbnailUrl = mediaItem?.video?.thumbnail
         ? toUrl(mediaItem.video.thumbnail)
         : mediaItem?.thumbnailUrl
-        ? toUrl(mediaItem.thumbnailUrl)
-        : url;
+          ? toUrl(mediaItem.thumbnailUrl)
+          : url;
 
       const availableQualities = mediaItem?.video?.variants
         ? Object.keys(mediaItem.video.variants).sort(
@@ -709,10 +710,11 @@ const PostCard = ({ post }) => {
       if (newSrc) {
         const currentTime = videoRef.current.currentTime;
         const wasPlaying = !videoRef.current.paused;
-        const src = newSrc.startsWith("http://") || newSrc.startsWith("https://")
-              ? newSrc
-              : `${import.meta.env.VITE_SERVER_URL}/${newSrc.replace(/\\/g, "/")}`;
-            videoRef.current.src = src;
+        const src =
+          newSrc.startsWith("http://") || newSrc.startsWith("https://")
+            ? newSrc
+            : `${import.meta.env.VITE_SERVER_URL}/${newSrc.replace(/\\/g, "/")}`;
+        videoRef.current.src = src;
         videoRef.current.currentTime = currentTime;
         if (wasPlaying) {
           videoRef.current
@@ -758,7 +760,9 @@ const PostCard = ({ post }) => {
             <img
               src={
                 post.user?.avatar
-                  ? `${import.meta.env.VITE_SERVER_URL}/${post.user.avatar.replace(/\\/g, "/")}`
+                  ? post.user.avatar.startsWith("http")
+                    ? post.user.avatar
+                    : `${import.meta.env.VITE_SERVER_URL}/${post.user.avatar.replace(/\\/g, "/")}`
                   : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
               }
               className="w-10 h-10 rounded-full object-cover border-2 border-amber-600 block"
@@ -1398,7 +1402,9 @@ const PostCard = ({ post }) => {
                         <img
                           src={
                             r.user?.avatar
-                              ? `${import.meta.env.VITE_SERVER_URL}/${r.user.avatar.replace(/\\/g, "/")}`
+                              ? r.user.avatar.startsWith("http")
+                                ? r.user.avatar
+                                : `${import.meta.env.VITE_SERVER_URL}/${r.user.avatar.replace(/\\/g, "/")}`
                               : "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
                           }
                           className="w-9 h-9 rounded-full object-cover border-2 border-amber-200"
