@@ -73,7 +73,7 @@ export const resetPassword = createAsyncThunk(
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(
-        err.response?.data?.message || "Reset password failed",
+        err.response?.data?.message || "Forgot password failed",
       );
     }
   },

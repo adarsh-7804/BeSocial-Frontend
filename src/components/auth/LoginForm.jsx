@@ -381,7 +381,7 @@ const LoginForm = () => {
               letterSpacing: "0.1em",
             }}
           >
-            © 2025 BeSocial
+            © 2026 BeSocial
           </p>
         </div>
 
@@ -490,7 +490,7 @@ const LoginForm = () => {
                     letterSpacing: "0.04em",
                   }}
                 >
-                  Re-Set Password?
+                  Forgot Password?
                 </Link>
               </div>
 

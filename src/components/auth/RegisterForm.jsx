@@ -411,7 +411,7 @@ const RegisterForm = () => {
               letterSpacing: "0.1em",
             }}
           >
-            © 2025 BeSocial
+            © 2026 BeSocial
           </p>
         </div>
 
