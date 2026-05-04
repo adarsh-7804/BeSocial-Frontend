@@ -676,8 +676,6 @@
 //     return null;
 //   };
 
-
-
 //   const handleNext = async (e) => {
 //     e.preventDefault();
 //     const err = validateStep();
@@ -692,7 +690,7 @@
 //         setValidationError(result.payload || "Failed to send OTP. Try again.");
 //         return;
 //       }
-//       setStep(1); 
+//       setStep(1);
 //     } else if (step < 2) {
 //       setStep(step + 1);
 //     } else {
@@ -1304,7 +1302,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { resetPassword, forgotPassword, selectAuthLoading } from "../../features/userSlice";
+import {
+  resetPassword,
+  forgotPassword,
+  selectAuthLoading,
+} from "../../features/userSlice";
 
 /* ─────────────────────────────────────────
    Email Input — dedicated component with
@@ -1315,9 +1317,9 @@ const EmailInput = ({ value, onChange }) => {
   const [touched, setTouched] = useState(false);
 
   const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  const showError   = touched && value && !isValid;
+  const showError = touched && value && !isValid;
   const showSuccess = touched && value && isValid;
-  const lifted      = focused || value;
+  const lifted = focused || value;
 
   return (
     <div className="relative pt-5 pb-1">
@@ -1325,13 +1327,13 @@ const EmailInput = ({ value, onChange }) => {
       <label
         className="absolute left-0 pointer-events-none transition-all duration-200"
         style={{
-          top:          lifted ? 0 : 22,
-          fontSize:     lifted ? 10 : 14,
-          fontWeight:   lifted ? 700 : 400,
-          color:        showError ? "#ef4444" : focused ? "#8C5A3C" : "#a0714f",
+          top: lifted ? 0 : 22,
+          fontSize: lifted ? 10 : 14,
+          fontWeight: lifted ? 700 : 400,
+          color: showError ? "#ef4444" : focused ? "#8C5A3C" : "#a0714f",
           letterSpacing: lifted ? "0.12em" : "0",
           textTransform: lifted ? "uppercase" : "none",
-          fontFamily:   "'DM Sans', sans-serif",
+          fontFamily: "'DM Sans', sans-serif",
         }}
       >
         Email Address
@@ -1347,21 +1349,24 @@ const EmailInput = ({ value, onChange }) => {
           onChange={onChange}
           placeholder={focused ? "you@example.com" : ""}
           onFocus={() => setFocused(true)}
-          onBlur={() => { setFocused(false); setTouched(true); }}
+          onBlur={() => {
+            setFocused(false);
+            setTouched(true);
+          }}
           className="w-full bg-transparent border-0 outline-none transition-colors duration-200 pr-7"
           style={{
             borderBottom: showError
               ? "2px solid #ef4444"
               : showSuccess
-              ? "2px solid #22c55e"
-              : focused
-              ? "2px solid #8C5A3C"
-              : "2px solid #c9a07a",
-            padding:    "7px 28px 7px 0",
-            fontSize:   15,
-            color:      "#291d1c",
+                ? "2px solid #22c55e"
+                : focused
+                  ? "2px solid #8C5A3C"
+                  : "2px solid #c9a07a",
+            padding: "7px 28px 7px 0",
+            fontSize: 15,
+            color: "#291d1c",
             fontFamily: "'DM Sans', sans-serif",
-            boxSizing:  "border-box",
+            boxSizing: "border-box",
           }}
         />
 
@@ -1378,7 +1383,7 @@ const EmailInput = ({ value, onChange }) => {
 
       {/* Inline feedback */}
       {/* {showError && ( */}
-        {/* // <p className="text-[11px] text-red-500 mt-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+      {/* // <p className="text-[11px] text-red-500 mt-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
         //   Please enter a valid email address (e.g. you@example.com)
         // </p>
       // )} */}
@@ -1392,7 +1397,15 @@ const EmailInput = ({ value, onChange }) => {
 };
 
 /* Generic Floating Input*/
-const FloatingInput = ({ label, type = "text", name, value, onChange, placeholder, required }) => {
+const FloatingInput = ({
+  label,
+  type = "text",
+  name,
+  value,
+  onChange,
+  placeholder,
+  required,
+}) => {
   const [focused, setFocused] = useState(false);
   const lifted = focused || value;
 
@@ -1401,13 +1414,13 @@ const FloatingInput = ({ label, type = "text", name, value, onChange, placeholde
       <label
         className="absolute left-0 pointer-events-none transition-all duration-200"
         style={{
-          top:          lifted ? 0 : 22,
-          fontSize:     lifted ? 10 : 14,
-          fontWeight:   lifted ? 700 : 400,
-          color:        focused ? "#8C5A3C" : "#a0714f",
+          top: lifted ? 0 : 22,
+          fontSize: lifted ? 10 : 14,
+          fontWeight: lifted ? 700 : 400,
+          color: focused ? "#8C5A3C" : "#a0714f",
           letterSpacing: lifted ? "0.12em" : "0",
           textTransform: lifted ? "uppercase" : "none",
-          fontFamily:   "'DM Sans', sans-serif",
+          fontFamily: "'DM Sans', sans-serif",
         }}
       >
         {label}
@@ -1427,11 +1440,11 @@ const FloatingInput = ({ label, type = "text", name, value, onChange, placeholde
         className="w-full bg-transparent border-0 outline-none transition-colors duration-200"
         style={{
           borderBottom: focused ? "2px solid #8C5A3C" : "2px solid #c9a07a",
-          padding:    "7px 0",
-          fontSize:   15,
-          color:      "#291d1c",
+          padding: "7px 0",
+          fontSize: 15,
+          color: "#291d1c",
           fontFamily: "'DM Sans', sans-serif",
-          boxSizing:  "border-box",
+          boxSizing: "border-box",
         }}
       />
     </div>
@@ -1446,12 +1459,13 @@ const StepDots = ({ current, total }) => (
         key={i}
         className="h-2 rounded-full transition-all duration-300"
         style={{
-          width:      i === current ? 22 : 8,
-          background: i < current
-            ? "#C08552"
-            : i === current
-            ? "linear-gradient(90deg,#C08552,#8C5A3C)"
-            : "#e1bc9c",
+          width: i === current ? 22 : 8,
+          background:
+            i < current
+              ? "#C08552"
+              : i === current
+                ? "linear-gradient(90deg,#C08552,#8C5A3C)"
+                : "#e1bc9c",
         }}
       />
     ))}
@@ -1479,10 +1493,7 @@ const PasswordRule = ({ rule, met }) => (
     >
       {"·"}
     </span>
-    <span
-      className="text-xs"
-      style={{ color: met ? "#291d1c" : "#a0714f" }}
-    >
+    <span className="text-xs" style={{ color: met ? "#291d1c" : "#a0714f" }}>
       {/* {rule} */}
     </span>
   </div>
@@ -1492,13 +1503,18 @@ const PasswordRule = ({ rule, met }) => (
 const ResetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loading  = useSelector(selectAuthLoading);
+  const loading = useSelector(selectAuthLoading);
 
-  const [step, setStep]                   = useState(0);
-  const [form, setForm]                   = useState({ email: "", otp: "", password: "", confirmPassword: "" });
+  const [step, setStep] = useState(0);
+  const [form, setForm] = useState({
+    email: "",
+    otp: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [validationError, setValidationError] = useState("");
-  const [success, setSuccess]             = useState(false);
-  const [otpFocused, setOtpFocused]       = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [otpFocused, setOtpFocused] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -1515,11 +1531,16 @@ const ResetPassword = () => {
         return "Please enter the OTP sent to your email";
     }
     if (step === 2) {
-      if (form.password.length < 8)           return "Password must be at least 8 characters";
-      if (!/[A-Z]/.test(form.password))       return "Password needs at least one uppercase letter";
-      if (!/[0-9]/.test(form.password))       return "Password needs at least one number";
-      if (!/[!@#$%^&*]/.test(form.password))  return "Password needs at least one special character";
-      if (form.password !== form.confirmPassword) return "Passwords do not match";
+      if (form.password.length < 8)
+        return "Password must be at least 8 characters";
+      if (!/[A-Z]/.test(form.password))
+        return "Password needs at least one uppercase letter";
+      if (!/[0-9]/.test(form.password))
+        return "Password needs at least one number";
+      if (!/[!@#$%^&*]/.test(form.password))
+        return "Password needs at least one special character";
+      if (form.password !== form.confirmPassword)
+        return "Passwords do not match";
     }
     return null;
   };
@@ -1527,24 +1548,37 @@ const ResetPassword = () => {
   const handleNext = async (e) => {
     e.preventDefault();
     const err = validateStep();
-    if (err) { setValidationError(err); return; }
+    if (err) {
+      setValidationError(err);
+      return;
+    }
 
     if (step === 0) {
       const result = await dispatch(forgotPassword({ email: form.email }));
       if (result.error) {
-        setValidationError(result.payload || "Failed to send OTP. Try again.");
+        setValidationError(
+          result.payload?.message ||
+            result.error?.message ||
+            "Failed to send OTP. Try again.",
+        );
         return;
       }
       setStep(1);
     } else if (step < 2) {
       setStep(step + 1);
     } else {
-      dispatch(resetPassword({ email: form.email, resetPasswordOtp: form.otp, newPassword: form.password }));
+      dispatch(
+        resetPassword({
+          email: form.email,
+          resetPasswordOtp: form.otp,
+          newPassword: form.password,
+        }),
+      );
       setSuccess(true);
     }
   };
 
-  const stepLabels       = ["Enter your email", "Verify OTP", "Set new password"];
+  const stepLabels = ["Enter your email", "Verify OTP", "Set new password"];
   const stepDescriptions = [
     "We'll verify your account using your registered email address.",
     "Enter the one-time password sent to your inbox.",
@@ -1553,10 +1587,13 @@ const ResetPassword = () => {
   const buttonLabels = ["Continue →", "Verify OTP →", "Reset Password →"];
 
   const passwordRules = [
-    { rule: "At least 8 characters",           met: form.password.length >= 8 },
-    { rule: "One uppercase letter",             met: /[A-Z]/.test(form.password) },
-    { rule: "One number",                       met: /[0-9]/.test(form.password) },
-    { rule: "One special character (!@#$%^&*)", met: /[!@#$%^&*]/.test(form.password) },
+    { rule: "At least 8 characters", met: form.password.length >= 8 },
+    { rule: "One uppercase letter", met: /[A-Z]/.test(form.password) },
+    { rule: "One number", met: /[0-9]/.test(form.password) },
+    {
+      rule: "One special character (!@#$%^&*)",
+      met: /[!@#$%^&*]/.test(form.password),
+    },
   ];
 
   return (
@@ -1599,28 +1636,43 @@ const ResetPassword = () => {
         {/* Decorative blobs */}
         <div
           className="absolute rounded-full pointer-events-none"
-          style={{ width: 500, height: 500, background: "rgba(192,133,82,0.06)", top: -180, right: -120 }}
+          style={{
+            width: 500,
+            height: 500,
+            background: "rgba(192,133,82,0.06)",
+            top: -180,
+            right: -120,
+          }}
         />
         <div
           className="absolute rounded-full pointer-events-none"
-          style={{ width: 360, height: 360, background: "rgba(140,90,60,0.06)", bottom: -140, left: -100 }}
+          style={{
+            width: 360,
+            height: 360,
+            background: "rgba(140,90,60,0.06)",
+            bottom: -140,
+            left: -100,
+          }}
         />
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: "radial-gradient(circle,rgba(193,133,81,0.1) 1px,transparent 1px)",
-            backgroundSize:  "30px 30px",
+            backgroundImage:
+              "radial-gradient(circle,rgba(193,133,81,0.1) 1px,transparent 1px)",
+            backgroundSize: "30px 30px",
           }}
         />
 
         {/* Content column */}
         <div className="w-full max-w-[440px] relative z-10">
-
           {/* Brand mark */}
           <div className="fu0 flex items-center gap-2.5 mb-9 justify-center">
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-sm"
-              style={{ background: "linear-gradient(135deg,#C08552,#8C5A3C)", color: "#FFF8F0" }}
+              style={{
+                background: "linear-gradient(135deg,#C08552,#8C5A3C)",
+                color: "#FFF8F0",
+              }}
             >
               ✦
             </div>
@@ -1636,15 +1688,18 @@ const ResetPassword = () => {
           <div
             className="rounded-[20px] px-10 py-11 relative overflow-hidden"
             style={{
-              background:   "#FFF8F0",
-              border:       "1.5px solid #e1bc9c",
-              boxShadow:    "0 8px 48px rgba(140,90,60,0.1), 0 2px 8px rgba(140,90,60,0.06)",
+              background: "#FFF8F0",
+              border: "1.5px solid #e1bc9c",
+              boxShadow:
+                "0 8px 48px rgba(140,90,60,0.1), 0 2px 8px rgba(140,90,60,0.06)",
             }}
           >
             {/* Top gradient bar */}
             <div
               className="absolute top-0 left-0 right-0 h-[3px] rounded-t-[20px]"
-              style={{ background: "linear-gradient(90deg,#C08552,#eaaf7c,#C08552)" }}
+              style={{
+                background: "linear-gradient(90deg,#C08552,#eaaf7c,#C08552)",
+              }}
             />
 
             {/* ── SUCCESS STATE ── */}
@@ -1654,7 +1709,7 @@ const ResetPassword = () => {
                   className="fu0 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
                   style={{
                     background: "linear-gradient(135deg,#C08552,#8C5A3C)",
-                    boxShadow:  "0 6px 20px rgba(140,90,60,0.3)",
+                    boxShadow: "0 6px 20px rgba(140,90,60,0.3)",
                   }}
                 >
                   <span style={{ color: "#FFF8F0", fontSize: 26 }}>✓</span>
@@ -1663,12 +1718,19 @@ const ResetPassword = () => {
                 <div className="fu1">
                   <h2
                     className="text-[26px] mb-2.5"
-                    style={{ fontFamily: "'Playfair Display', serif", color: "#291d1c" }}
+                    style={{
+                      fontFamily: "'Playfair Display', serif",
+                      color: "#291d1c",
+                    }}
                   >
                     Password updated!
                   </h2>
-                  <p className="text-sm leading-relaxed mb-7" style={{ color: "#7a5c4f" }}>
-                    Your password has been reset successfully.<br />
+                  <p
+                    className="text-sm leading-relaxed mb-7"
+                    style={{ color: "#7a5c4f" }}
+                  >
+                    Your password has been reset successfully.
+                    <br />
                     You can now log in with your new credentials.
                   </p>
                 </div>
@@ -1678,9 +1740,10 @@ const ResetPassword = () => {
                     onClick={() => navigate("/login")}
                     className="rp-btn cursor-pointer w-full py-3.5 rounded-[10px] text-[13px] font-semibold tracking-[0.1em] uppercase border-0 transition-all duration-200"
                     style={{
-                      background: "linear-gradient(135deg,#C08552 0%,#8C5A3C 100%)",
-                      color:      "#FFF8F0",
-                      boxShadow:  "0 6px 24px rgba(140,90,60,0.3)",
+                      background:
+                        "linear-gradient(135deg,#C08552 0%,#8C5A3C 100%)",
+                      color: "#FFF8F0",
+                      boxShadow: "0 6px 24px rgba(140,90,60,0.3)",
                       fontFamily: "'DM Sans', sans-serif",
                     }}
                   >
@@ -1688,7 +1751,6 @@ const ResetPassword = () => {
                   </button>
                 </div>
               </div>
-
             ) : (
               /* ── FORM STATE ── */
               <>
@@ -1704,13 +1766,16 @@ const ResetPassword = () => {
                     className="mb-2 leading-tight"
                     style={{
                       fontFamily: "'Playfair Display', serif",
-                      fontSize:   "clamp(22px,3vw,30px)",
-                      color:      "#291d1c",
+                      fontSize: "clamp(22px,3vw,30px)",
+                      color: "#291d1c",
                     }}
                   >
                     {stepLabels[step]}
                   </h1>
-                  <p className="text-[13px] leading-relaxed mb-6" style={{ color: "#7a5c4f" }}>
+                  <p
+                    className="text-[13px] leading-relaxed mb-6"
+                    style={{ color: "#7a5c4f" }}
+                  >
                     {stepDescriptions[step]}
                   </p>
                 </div>
@@ -1719,14 +1784,17 @@ const ResetPassword = () => {
                 {validationError && (
                   <div
                     className="fu0 rounded-[10px] px-4 py-3 mb-5 text-[13px]"
-                    style={{ background: "#fee2e2", border: "1px solid #fca5a5", color: "#b91c1c" }}
+                    style={{
+                      background: "#fee2e2",
+                      border: "1px solid #fca5a5",
+                      color: "#b91c1c",
+                    }}
                   >
                     {validationError}
                   </div>
                 )}
 
                 <form onSubmit={handleNext}>
-
                   {/* ── STEP 0 : Email ── */}
                   {step === 0 && (
                     <div className="slide-in">
@@ -1740,12 +1808,17 @@ const ResetPassword = () => {
                       {/* "Code sent to" badge */}
                       <div
                         className="flex items-center gap-2 px-3.5 py-2.5 rounded-[10px] mb-6"
-                        style={{ background: "rgba(192,133,82,0.08)", border: "1px solid #e1bc9c" }}
+                        style={{
+                          background: "rgba(192,133,82,0.08)",
+                          border: "1px solid #e1bc9c",
+                        }}
                       >
                         <span className="text-base">📧</span>
                         <span className="text-xs" style={{ color: "#7a5c4f" }}>
                           Code sent to{" "}
-                          <strong style={{ color: "#8C5A3C" }}>{form.email}</strong>
+                          <strong style={{ color: "#8C5A3C" }}>
+                            {form.email}
+                          </strong>
                         </span>
                       </div>
 
@@ -1754,17 +1827,19 @@ const ResetPassword = () => {
                         <label
                           className="absolute left-0 pointer-events-none transition-all duration-200"
                           style={{
-                            top:          form.otp ? 0 : 22,
-                            fontSize:     form.otp ? 10 : 14,
-                            fontWeight:   form.otp ? 700 : 400,
-                            color:        "#a0714f",
+                            top: form.otp ? 0 : 22,
+                            fontSize: form.otp ? 10 : 14,
+                            fontWeight: form.otp ? 700 : 400,
+                            color: "#a0714f",
                             letterSpacing: form.otp ? "0.12em" : "0",
                             textTransform: form.otp ? "uppercase" : "none",
-                            fontFamily:   "'DM Sans', sans-serif",
+                            fontFamily: "'DM Sans', sans-serif",
                           }}
                         >
                           One-Time Password{" "}
-                          <span className="text-red-500 text-[9px] ml-0.5 align-super">*</span>
+                          <span className="text-red-500 text-[9px] ml-0.5 align-super">
+                            *
+                          </span>
                         </label>
 
                         <input
@@ -1775,22 +1850,27 @@ const ResetPassword = () => {
                           maxLength={8}
                           className="otp-input w-full bg-transparent border-0 outline-none transition-colors duration-200"
                           style={{
-                            borderBottom: otpFocused ? "2px solid #8C5A3C" : "2px solid #c9a07a",
-                            padding:      "7px 0",
-                            color:        "#291d1c",
-                            fontFamily:   "'DM Sans', sans-serif",
-                            boxSizing:    "border-box",
-                            textAlign:    "center",
+                            borderBottom: otpFocused
+                              ? "2px solid #8C5A3C"
+                              : "2px solid #c9a07a",
+                            padding: "7px 0",
+                            color: "#291d1c",
+                            fontFamily: "'DM Sans', sans-serif",
+                            boxSizing: "border-box",
+                            textAlign: "center",
                             letterSpacing: "0.4em",
-                            fontWeight:   600,
-                            fontSize:     22,
+                            fontWeight: 600,
+                            fontSize: 22,
                           }}
                           onFocus={() => setOtpFocused(true)}
-                          onBlur={()  => setOtpFocused(false)}
+                          onBlur={() => setOtpFocused(false)}
                         />
                       </div>
 
-                      <p className="text-xs text-center mt-3" style={{ color: "#a0714f" }}>
+                      <p
+                        className="text-xs text-center mt-3"
+                        style={{ color: "#a0714f" }}
+                      >
                         Didn't receive it?{" "}
                         <span
                           className="font-semibold cursor-pointer underline"
@@ -1830,7 +1910,10 @@ const ResetPassword = () => {
                       {/* Password rules box */}
                       <div
                         className="mt-4 px-4 py-3.5 rounded-[10px]"
-                        style={{ background: "rgba(192,133,82,0.07)", border: "1px solid #e1bc9c" }}
+                        style={{
+                          background: "rgba(192,133,82,0.07)",
+                          border: "1px solid #e1bc9c",
+                        }}
                       >
                         <p
                           className="text-[11px] font-bold mb-2 tracking-[0.06em] uppercase"
@@ -1852,25 +1935,31 @@ const ResetPassword = () => {
                       disabled={loading}
                       className="rp-btn cursor-pointer w-full py-3.5 rounded-[10px] text-[13px] font-semibold tracking-[0.1em] uppercase border-0 transition-all duration-200"
                       style={{
-                        background: "linear-gradient(135deg,#C08552 0%,#8C5A3C 100%)",
-                        color:      "#FFF8F0",
-                        cursor:     loading ? "not-allowed" : "pointer",
-                        boxShadow:  "0 6px 24px rgba(140,90,60,0.3)",
+                        background:
+                          "linear-gradient(135deg,#C08552 0%,#8C5A3C 100%)",
+                        color: "#FFF8F0",
+                        cursor: loading ? "not-allowed" : "pointer",
+                        boxShadow: "0 6px 24px rgba(140,90,60,0.3)",
                         fontFamily: "'DM Sans', sans-serif",
-                        opacity:    loading ? 0.7 : 1,
+                        opacity: loading ? 0.7 : 1,
                       }}
                     >
-                      {step === 0 && loading ? "Sending OTP..." : buttonLabels[step]}
+                      {step === 0 && loading
+                        ? "Sending OTP..."
+                        : buttonLabels[step]}
                     </button>
 
                     {step > 0 && (
                       <button
                         type="button"
-                        onClick={() => { setStep(step - 1); setValidationError(""); }}
+                        onClick={() => {
+                          setStep(step - 1);
+                          setValidationError("");
+                        }}
                         className="rp-btn cursor-pointer w-full mt-3 py-3 rounded-[10px] text-[13px] font-medium bg-transparent transition-all duration-200"
                         style={{
-                          color:      "#7a5c4f",
-                          border:     "2px solid #c9a07a",
+                          color: "#7a5c4f",
+                          border: "2px solid #c9a07a",
                           fontFamily: "'DM Sans', sans-serif",
                         }}
                       >
@@ -1884,8 +1973,8 @@ const ResetPassword = () => {
                         onClick={() => navigate("/login")}
                         className="rp-btn cursor-pointer w-full mt-3 py-3 rounded-[10px] text-[13px] font-medium bg-transparent transition-all duration-200"
                         style={{
-                          color:      "#7a5c4f",
-                          border:     "2px solid #c9a07a",
+                          color: "#7a5c4f",
+                          border: "2px solid #c9a07a",
                           fontFamily: "'DM Sans', sans-serif",
                         }}
                       >
