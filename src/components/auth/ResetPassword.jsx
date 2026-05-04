@@ -1558,6 +1558,7 @@ const ResetPassword = () => {
       if (result.error) {
         setValidationError(
           result.payload?.message ||
+            result.payload ||
             result.error?.message ||
             "Failed to send OTP. Try again.",
         );
