@@ -5,6 +5,7 @@ import {
   resetPassword,
   forgotPassword,
   selectAuthLoading,
+  clearError,
 } from "../../features/userSlice";
 
 /* Floating Email Input */
@@ -185,6 +186,11 @@ const ResetPassword = () => {
   const [success, setSuccess] = useState(false);
   const [otpFocused, setOtpFocused] = useState(false);
 
+  React.useEffect(() => {
+    dispatch(clearError());
+    return () => dispatch(clearError());
+  }, [dispatch]);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setValidationError("");
@@ -231,6 +237,7 @@ const ResetPassword = () => {
             result.error?.message ||
             "Failed to send OTP. Try again.",
         );
+        dispatch(clearError());
         return;
       }
       setStep(1);
@@ -521,7 +528,10 @@ const ResetPassword = () => {
 
                 <div className="fu2">
                   <button
-                    onClick={() => navigate("/login")}
+                    onClick={() => {
+                      dispatch(clearError());
+                      navigate("/login");
+                    }}
                     className="rp-btn"
                     style={{
                       width: "100%",
@@ -846,7 +856,10 @@ const ResetPassword = () => {
                     {step === 0 && (
                       <button
                         type="button"
-                        onClick={() => navigate("/login")}
+                        onClick={() => {
+                          dispatch(clearError());
+                          navigate("/login");
+                        }}
                         className="rp-btn"
                         style={{
                           width: "100%",
