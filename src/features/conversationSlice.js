@@ -3,7 +3,7 @@ import {
   createAsyncThunk,
   isRejectedWithValue,
 } from "@reduxjs/toolkit";
-import axios from "axios";
+import API from "../api/axios"
 
 const BASE = import.meta.env.VITE_API_URL;
 
@@ -11,8 +11,8 @@ export const getOrCreateConversation = createAsyncThunk(
   "conversation/getOrCreate",
   async (receiverId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
-        `${BASE}/conversation`,
+      const { data } = await API.post(
+        `/conversation`,
         { receiverId },
         { withCredentials: true },
       );
@@ -27,7 +27,7 @@ export const fetchConversations = createAsyncThunk(
   "conversation/fetchAll",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${BASE}/conversation`, {
+      const { data } = await API.get(`/conversation`, {
         withCredentials: true,
       });
       return data;
@@ -41,8 +41,8 @@ export const createGroupConversation = createAsyncThunk(
   "conversation/createGroup",
   async ({ groupName, participantsIds }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
-        `${BASE}/conversation/group`,
+      const { data } = await API.post(
+        `/conversation/group`,
         { groupName, participantsId: participantsIds },
         {
           withCredentials: true,
@@ -59,8 +59,8 @@ export const updateGroupName = createAsyncThunk(
   "conversation/updateGroupName",
   async ({ conversationId, newGroupName }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(
-        `${BASE}/conversation/update-group-name`,
+      const { data } = await API.put(
+        `/conversation/update-group-name`,
         {
           conversationId,
           newGroupName,
@@ -78,8 +78,8 @@ export const removeMemberFromGroup = createAsyncThunk(
   "conversation/removeMember",
   async ({ conversationId, memberIdToRemove }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
-        `${BASE}/conversation/remove-member`,
+      const { data } = await API.post(
+        `/conversation/remove-member`,
         {
           conversationId,
           memberIdToRemove,
@@ -97,8 +97,8 @@ export const searchConversations = createAsyncThunk(
   "conversation/search",
   async (query, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(
-        `${BASE}/conversation/search?q=${query}`,
+      const { data } = await API.get(
+        `/conversation/search?q=${query}`,
         {
           withCredentials: true,
         },
@@ -114,7 +114,7 @@ export const fetchArchivedConversations = createAsyncThunk(
   "conversation/fetchArchived",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${BASE}/conversation/archived`, {
+      const { data } = await API.get(`/conversation/archived`, {
         withCredentials: true,
       });
       return data;
@@ -132,8 +132,8 @@ export const updateGroupProfilePic = createAsyncThunk(
       formData.append("conversationId", conversationId);
       formData.append("groupProfilePic", file);
 
-      const { data } = await axios.put(
-        `${BASE}/conversation/update-group-profile-pic`,
+      const { data } = await API.put(
+        `/conversation/update-group-profile-pic`,
         formData,
         {
           withCredentials: true,
