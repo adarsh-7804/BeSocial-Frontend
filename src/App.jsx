@@ -51,7 +51,7 @@ import TestChat from "./components/layout/buttons/TestChat";
           </Route>
 
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-pass" element={<ResetPassword />} />
+          <Route path="/forgot-pass" element={<ResetPassword />} />
 
           <Route element={<ProtectedRoutes />}>
             {/* <Route path="/home" element={<Feed />} /> */}
