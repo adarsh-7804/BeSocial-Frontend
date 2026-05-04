@@ -1020,7 +1020,8 @@ export default function TestChat() {
                       <div className="w-10 h-10 rounded-full bg-[#6c63ff] flex items-center justify-center text-white text-base shrink-0 overflow-hidden border border-[#6c63ff]">
                         {conv.groupProfilePic ? (
                           <img
-                            src={`${import.meta.env.VITE_SERVER_URL}${conv.groupProfilePic}`}
+                            // src={`${import.meta.env.VITE_SERVER_URL}${conv.groupProfilePic}`}
+                            src={getFullUrl(conv.groupProfilePic)}
                             alt={conv.groupName}
                             className="w-full h-full object-cover"
                           />
@@ -1760,7 +1761,8 @@ export default function TestChat() {
                         <div className="w-9 h-9 rounded-full bg-[#6c63ff] flex items-center justify-center text-white text-base shrink-0 overflow-hidden border border-[#6c63ff]">
                           {conv.groupProfilePic ? (
                             <img
-                      src={finalUrl}
+                      // src={finalUrl}
+                      src={getFullUrl(conv.groupProfilePic)}
                       alt="avatar"
                       className="w-full h-full object-cover"
                       onError={(e) => {
@@ -1908,7 +1910,8 @@ export default function TestChat() {
                         <div className="w-9 h-9 rounded-full bg-[#6c63ff] flex items-center justify-center text-white text-base shrink-0 overflow-hidden border border-[#6c63ff]">
                           {conv.groupProfilePic ? (
                             <img
-                              src={`${import.meta.env.VITE_SERVER_URL}${conv.groupProfilePic}`}
+                              // src={`${import.meta.env.VITE_SERVER_URL}${conv.groupProfilePic}`}
+                              src={getFullUrl(conv.groupProfilePic)}
                               alt={conv.groupName}
                               className="w-full h-full object-cover"
                             />
@@ -1971,7 +1974,8 @@ export default function TestChat() {
                       <div className="w-9 h-9 rounded-full bg-[#6c63ff] flex items-center justify-center text-white text-base shrink-0 overflow-hidden border border-[#6c63ff]">
                         {conv.groupProfilePic ? (
                           <img
-                            src={`${import.meta.env.VITE_SERVER_URL}${conv.groupProfilePic}`}
+                            // src={`${import.meta.env.VITE_SERVER_URL}${conv.groupProfilePic}`}
+                            src={getFullUrl(conv.groupProfilePic)}
                             alt={conv.groupName}
                             className="w-full h-full object-cover"
                           />

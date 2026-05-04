@@ -170,16 +170,32 @@ const LoginForm = () => {
     }
   };
 
+  // const handleVerifyOtp = async () => {
+  //   setOtpError("");
+  //   try {
+  //     const res = await dispatch(
+  //       verifyLoginOtp({ email: emailForOtp, otp: otp }),
+  //     ).unwrap();
+
+  //     setShowOtpPopup(false);
+  //     dispatch(fetchFriendRequests());
+  //     navigate("/main");
+  //   } catch (err) {
+  //     setOtpError(err?.message || "Invalid OTP. Please Re-Enter the OTP.");
+  //   }
+  // };
 
   const handleVerifyOtp = async () => {
-    setOtpError(""); 
+    setOtpError("");
     try {
       const res = await dispatch(
         verifyLoginOtp({ email: emailForOtp, otp: otp }),
       ).unwrap();
 
+      localStorage.setItem("accessToken", res.accessToken);
+
       setShowOtpPopup(false);
-      dispatch(fetchFriendRequests()); 
+      dispatch(fetchFriendRequests());
       navigate("/main");
     } catch (err) {
       setOtpError(err?.message || "Invalid OTP. Please Re-Enter the OTP.");
