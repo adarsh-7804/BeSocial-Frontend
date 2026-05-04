@@ -134,6 +134,7 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [otpError, setOtpError] = useState("");
+  const [validationError, setValidationError] = useState("");
 
   useEffect(() => {
     if (token) navigate("/");
@@ -147,11 +148,20 @@ const LoginForm = () => {
     console.log("Reactivate Popup:", showReactivatePopup);
   }, [showReactivatePopup]);
 
-  const handleChange = (e) =>
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setValidationError("");
+    dispatch(clearError());
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!form.identifier.trim() || !form.password.trim()) {
+      setValidationError("Enter the required fields");
+      return;
+    }
+    setValidationError("");
 
     try {
       const res = await dispatch(loginUser(form)).unwrap();
@@ -425,7 +435,24 @@ const LoginForm = () => {
               </p>
             </div>
 
-            {error && (
+            {validationError && (
+              <div
+                className="fu0"
+                style={{
+                  background: "#fee2e2",
+                  border: "1px solid #fca5a5",
+                  borderRadius: 10,
+                  padding: "11px 15px",
+                  marginBottom: 22,
+                  color: "#b91c1c",
+                  fontSize: 13,
+                }}
+              >
+                {validationError}
+              </div>
+            )}
+
+            {error && !validationError && (
               <div
                 className="fu0"
                 style={{

@@ -192,7 +192,7 @@ const RegisterForm = () => {
     if (!form.firstName.trim()) return "First name is required";
     if (!form.lastName.trim()) return "Last name is required";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
-      return "Email is required";
+      return "Enter Valid Email Address";
     if (!form.phoneNumber.trim()) return "Phone number is required";
     if (!/^(\+91)?[6-9]\d{9}$/.test(form.phoneNumber.trim()))
       return "Enter a valid phone number";
@@ -521,7 +521,7 @@ const RegisterForm = () => {
                     name="phoneNumber"
                     value={form.phoneNumber}
                     onChange={handleChange}
-                    placeholder="+91 98765 43210"
+                    placeholder="+919876543210"
                     required
                   />
                 </div>

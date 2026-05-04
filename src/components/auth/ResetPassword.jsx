@@ -19,14 +19,14 @@ const EmailInput = ({ value, onChange }) => {
         style={{
           position: "absolute",
           left: 0,
-          top: lifted ? 0 : 22,
-          fontSize: lifted ? 10 : 14,
-          fontWeight: lifted ? 700 : 400,
+          top:   -5,
+          fontSize:11,
+          fontWeight:  700,      
           color: focused ? "#8C5A3C" : "#a0714f",
-          transition: "all 0.2s ease",
+          // transition: "all 0.2s ease",
           pointerEvents: "none",
           letterSpacing: lifted ? "0.12em" : "0",
-          textTransform: lifted ? "uppercase" : "none",
+          textTransform:  "uppercase",
           fontFamily: "'DM Sans', sans-serif",
         }}
       >
@@ -53,15 +53,15 @@ const EmailInput = ({ value, onChange }) => {
         onBlur={() => setFocused(false)}
         style={{
           width: "100%",
-          background: "transparent",
-          border: "none",
-          borderBottom: focused ? "2px solid #8C5A3C" : "2px solid #c9a07a",
-          padding: "7px 0",
+          background: "#FFFFFF",
+          border: `2px solid ${focused ? "#8C5A3C" : "#c9a07a"}`,
+          borderRadius: 10,
+          padding: "14px 12px", // 🔥 important: makes it a proper box
           fontSize: 15,
           color: "#291d1c",
           outline: "none",
-          transition: "border-color 0.2s",
-          fontFamily: "'DM Sans', sans-serif",
+          transition: "all 0.2s ease",
+          fontFamily: "'DM Sans',sans-serif",
           boxSizing: "border-box",
         }}
       />
@@ -582,7 +582,9 @@ const ResetPassword = () => {
                   >
                     {stepLabels[step]}
                   </h1>
-                  <p style={{ color: "#7a5c4f", fontSize: 13, marginBottom: 28 }}>
+                  <p
+                    style={{ color: "#7a5c4f", fontSize: 13, marginBottom: 28 }}
+                  >
                     {stepDescriptions[step]}
                   </p>
                 </div>
@@ -636,7 +638,13 @@ const ResetPassword = () => {
                         </span>
                       </div>
 
-                      <div style={{ position: "relative", paddingTop: 20, paddingBottom: 4 }}>
+                      <div
+                        style={{
+                          position: "relative",
+                          paddingTop: 20,
+                          paddingBottom: 4,
+                        }}
+                      >
                         <label
                           style={{
                             position: "absolute",
@@ -804,10 +812,9 @@ const ResetPassword = () => {
                       style={{
                         width: "100%",
                         padding: "14px",
-                        background:
-                          loading
-                            ? "#c9a07a"
-                            : "linear-gradient(135deg,#C08552 0%,#8C5A3C 100%)",
+                        background: loading
+                          ? "#c9a07a"
+                          : "linear-gradient(135deg,#C08552 0%,#8C5A3C 100%)",
                         color: "#FFF8F0",
                         border: "none",
                         borderRadius: 10,
