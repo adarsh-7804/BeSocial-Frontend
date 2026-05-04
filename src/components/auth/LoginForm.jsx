@@ -481,7 +481,7 @@ const LoginForm = () => {
                 }}
               >
                 <Link
-                  to="/reset-pass"
+                  to="/forgot-pass"
                   style={{
                     fontSize: 12,
                     color: "#8C5A3C",
