@@ -41,6 +41,10 @@
   export const resetPassword = (data) =>
     API.post("/auth/user/reset-pass", data);
 
+  // Validate Reset OTP (for forgot password)
+  export const validateResetOtp = (data) =>
+    API.post("/auth/user/validate-reset-otp", data);
+
   // Change Password
   export const changePassword = (data) =>
     API.post("/auth/user/change-password", data);

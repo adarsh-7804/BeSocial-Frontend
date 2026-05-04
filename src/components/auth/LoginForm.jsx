@@ -508,7 +508,7 @@ const LoginForm = () => {
                 }}
               >
                 <Link
-                  to="/forgot-pass"
+                  to="/forgot-password"
                   style={{
                     fontSize: 12,
                     color: "#8C5A3C",

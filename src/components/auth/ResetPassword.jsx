@@ -649,11 +649,11 @@ const ResetPassword = () => {
                           style={{
                             position: "absolute",
                             left: 0,
-                            top: form.otp ? 0 : 22,
-                            fontSize: form.otp ? 10 : 14,
-                            fontWeight: form.otp ? 700 : 400,
+                            top: -5,
+                            fontSize: 11,
+                            fontWeight: 700,
                             color: "#a0714f",
-                            transition: "all 0.2s ease",
+                            // transition: "all 0.2s ease",
                             pointerEvents: "none",
                             letterSpacing: form.otp ? "0.12em" : "0",
                             textTransform: form.otp ? "uppercase" : "none",
@@ -682,10 +682,11 @@ const ResetPassword = () => {
                           style={{
                             width: "100%",
                             background: "transparent",
-                            border: "none",
-                            borderBottom: otpFocused
-                              ? "2px solid #8C5A3C"
-                              : "2px solid #c9a07a",
+                            border: `2px solid ${otpFocused ? "#8C5A3C" : "#c9a07a"}`,
+                            // borderBottom: otpFocused
+                            //   ? "2px solid #8C5A3C"
+                            //   : "2px solid #c9a07a",
+                            borderRadius: 10,
                             padding: "7px 0",
                             fontSize: 22,
                             color: "#291d1c",
@@ -695,14 +696,14 @@ const ResetPassword = () => {
                             boxSizing: "border-box",
                             textAlign: "center",
                             letterSpacing: "0.4em",
-                            fontWeight: 600,
+                            // fontWeight: 600,
                           }}
                           onFocus={() => setOtpFocused(true)}
                           onBlur={() => setOtpFocused(false)}
                         />
                       </div>
 
-                      <p
+                      {/* <p
                         style={{
                           fontSize: 12,
                           color: "#a0714f",
@@ -721,7 +722,7 @@ const ResetPassword = () => {
                         >
                           Resend OTP
                         </span>
-                      </p>
+                      </p> */}
                     </div>
                   )}
 
