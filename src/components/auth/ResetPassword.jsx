@@ -422,7 +422,7 @@ const ResetPassword = () => {
                 marginBottom: 20,
               }}
             >
-              Reset your
+              Change your
               <br />
               <em style={{ color: "#eaaf7c" }}>password</em>
               <br />
@@ -559,7 +559,7 @@ const ResetPassword = () => {
                       marginBottom: 10,
                     }}
                   >
-                    Reset Password · Step {step + 1} of 3
+                    Forgot Password · Step {step + 1} of 3
                   </p>
                   <h1
                     style={{
