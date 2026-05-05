@@ -172,7 +172,7 @@ const RightPanel = () => {
           <p style={{ fontSize: 11, color: "#c9a07a", lineHeight: 1.8 }}>
             About · Privacy · Terms · Advertising
             <br />
-            BeSocial © 2025
+            BeSocial © 2026
           </p>
         </div>
       </aside>
