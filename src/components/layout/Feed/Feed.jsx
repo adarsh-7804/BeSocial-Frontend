@@ -769,6 +769,13 @@ const Feed = () => {
             </div>
 
             {/*  POSTS FEED  */}
+            {loading && posts.length === 0 && (
+              <div className="text-center py-12 sm:py-16 md:py-20 text-[#a0714f] text-xs sm:text-sm md:text-base">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 border-3 border-[#e1bc9c] border-t-[#C08552] rounded-full mx-auto mb-3 sm:mb-4 animate-spin" />
+                Loading posts…
+              </div>
+            )}
+
             {error && (
               <div className="bg-red-100 border border-red-300 rounded-xl sm:rounded-2xl p-3 sm:p-4 text-red-700 text-xs sm:text-sm mb-4 sm:mb-5 max-w-full sm:max-w-md md:max-w-[470px] mx-auto md:ml-[5vw]">
                 {error}

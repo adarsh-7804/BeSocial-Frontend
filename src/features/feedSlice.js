@@ -38,7 +38,6 @@ const feedSlice = createSlice({
 
       const posts = action.payload.posts;
 
-      // 🔥 ensure sorted
       posts.sort((a, b) => b.score - a.score);
 
       state.posts = posts;
