@@ -383,7 +383,7 @@ const Navbar = ({ userId }) => {
           >
             <FaPaperPlane />
           </div>
-          {/* ── Bell button ── */}
+          {/* Bell button  */}
           <div style={{ position: "relative" }}>
             <button
               title="Notification"
@@ -395,7 +395,6 @@ const Navbar = ({ userId }) => {
                 <span
                   style={{
                     position: "absolute",
-                    text: "7px" ,
                     top: 8,
                     right: 8,
                     width: 11,

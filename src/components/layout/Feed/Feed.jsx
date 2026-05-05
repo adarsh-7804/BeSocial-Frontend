@@ -743,7 +743,7 @@ const Feed = () => {
                   <span className="hidden sm:inline">
                     {open
                       ? "Close Posting"
-                      : `What's on your mind, ${currentUser?.username || "friend"}?`}
+                      : `What's on your mind ?`}
                   </span>
                   <span className="sm:hidden">
                     {open ? "Close" : "What's on your mind?"}

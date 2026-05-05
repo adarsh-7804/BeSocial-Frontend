@@ -242,7 +242,7 @@ const Poll = ({ post, onVote }) => {
           })}
         </div>
         {!hasVoted && (
-          <p className="text-[10px] text-gray-400 mt-2">
+          <p className="text-[10px] text-[#FFF8F0] mt-2">
             {totalVotes > 0 ? `${totalVotes} ${totalVotes === 1 ? "vote" : "votes"} · ` : ""}
             Click an option to vote
           </p>
