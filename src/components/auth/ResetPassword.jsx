@@ -56,7 +56,7 @@ const EmailInput = ({ value, onChange }) => {
           background: "#FFFFFF",
           border: `2px solid ${focused ? "#8C5A3C" : "#c9a07a"}`,
           borderRadius: 10,
-          padding: "14px 12px", // 🔥 important: makes it a proper box
+          padding: "14px 12px", 
           fontSize: 15,
           color: "#291d1c",
           outline: "none",

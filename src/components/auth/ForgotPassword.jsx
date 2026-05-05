@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { forgotPassword, resetPassword } from "../../features/userSlice";
+import {
+  clearError,
+  forgotPassword,
+  resetPassword,
+} from "../../features/userSlice";
 import * as api from "../../api/userApi";
 
 const ForgotPassword = () => {
@@ -21,6 +25,10 @@ const ForgotPassword = () => {
   const [otpError, setOtpError] = useState("");
   const [showPasswordInfo, setShowPasswordInfo] = useState(false);
   const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
+
+  useEffect(() => {
+    return () => dispatch(clearError());
+  }, [dispatch]);
 
   // Password validation requirements
   const passwordRequirements = {
@@ -476,7 +484,10 @@ const ForgotPassword = () => {
                   <div className="fu3" style={{ marginTop: 16 }}>
                     <button
                       type="button"
-                      onClick={() => navigate("/login")}
+                      onClick={() => {
+                        dispatch(clearError());
+                        navigate("/login");
+                      }}
                       className="fp-btn cursor-pointer"
                       style={{
                         width: "100%",
@@ -990,7 +1001,10 @@ const ForgotPassword = () => {
                   <div className="fu4" style={{ marginTop: 16 }}>
                     <button
                       type="button"
-                      onClick={() => navigate("/login")}
+                      onClick={() => {
+                        dispatch(clearError());
+                        navigate("/login");
+                      }}
                       className="fp-btn cursor-pointer"
                       style={{
                         width: "100%",
