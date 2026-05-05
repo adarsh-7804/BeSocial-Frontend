@@ -21,7 +21,7 @@ API.interceptors.request.use((req) => {
 export const fetchDrafts = () =>
   API.get("/draft/", {
     headers: {
-      "Cache-Control": "no-cache",
+    //   "Cache-Control": "no-cache",
     },
   });
 
