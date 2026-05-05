@@ -32,14 +32,23 @@ const ForgotPassword = () => {
 
   const isPasswordValid = Object.values(passwordRequirements).every((req) => req);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email.trim()) {
       setError("Please enter your email address");
       return;
     }
     setError("");
-    dispatch(forgotPassword({ email }));
+    const result = await dispatch(forgotPassword({ email }));
+    if (result.error) {
+      setError(
+        result.payload?.message ||
+          result.payload ||
+          result.error?.message ||
+          "Email not found in our system."
+      );
+      return;
+    }
     setSubmitted(true);
   };
 
@@ -412,7 +421,7 @@ const ForgotPassword = () => {
                       </span>
                     </label>
                     <input
-                      type="email"
+                      type="text"
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
