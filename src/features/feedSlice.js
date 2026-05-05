@@ -43,7 +43,7 @@ const feedSlice = createSlice({
 
       state.posts = posts;
       state.page = 2;
-      state.hasMore = posts.length > 0;
+      state.hasMore = posts.length >= 10;
     },
 
     // fetchSuccess: (state, action) => {
@@ -81,7 +81,7 @@ const feedSlice = createSlice({
       state.posts = merged;
 
       state.page += 1;
-      state.hasMore = newPosts.length > 0;
+      state.hasMore = newPosts.length >= 10;
     },
 
     fetchError: (state, action) => {
