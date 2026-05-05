@@ -21,7 +21,7 @@ const initialState = {
   error: null,
   page: 1,
   hasMore: true,
-  type: "following",
+  type: "forYou",
 };
 
 const feedSlice = createSlice({

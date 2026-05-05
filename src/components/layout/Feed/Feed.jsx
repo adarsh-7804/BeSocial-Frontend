@@ -670,8 +670,8 @@ const Feed = () => {
         {/*  FEED TYPE TABS  */}
         <div className="fade-up flex flex-wrap sm:flex-nowrap justify-between gap-2 sm:gap-3 mb-4 sm:mb-6 border-b-2 border-[#e8d5c0] pb-3 sm:pb-5">
           {[
-            { key: "following", label: "Following", icon: "👥" },
             { key: "forYou", label: "ForYou", icon: "✨" },
+            { key: "following", label: "Following", icon: "👥" },
             { key: "trending", label: "Trending", icon: "🔥" },
             { key: "latest", label: "Latest", icon: "🕐" },
           ].map(({ key, label, icon }) => (
