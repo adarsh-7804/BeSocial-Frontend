@@ -395,10 +395,11 @@ const Navbar = ({ userId }) => {
                 <span
                   style={{
                     position: "absolute",
+                    text: "7px" ,
                     top: 8,
                     right: 8,
-                    width: 12,
-                    height: 12,
+                    width: 11,
+                    height: 11,
                     background: "#C08552",
                     borderRadius: "50%",
                     border: "1.5px solid #fff",
