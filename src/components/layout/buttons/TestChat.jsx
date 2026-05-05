@@ -57,6 +57,7 @@ import {
 import { ImPushpin } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../../../utils/getImageUrl";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 export default function TestChat() {
   const dispatch = useDispatch();
@@ -1080,14 +1081,26 @@ export default function TestChat() {
           {active ? (
             <>
               <div className="sticky top-0  z-10 bg-[#FFF8F0] border border-[#E2BE9F] rounded-full p-2 flex justify-between">
-                <div
-                  className="flex items-center gap-2.5 cursor-pointer"
-                  onClick={() => {
-                    if (!active.isGroup) {
-                      navigate(`/profile/${getOtherParticipant(active)?._id}`);
-                    }
-                  }}
-                >
+                <div className="flex items-center gap-2.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      dispatch(setActiveConversation(null));
+                      setShowConvMenu(null);
+                    }}
+                    className="w-9 h-9  rounded-full bg-[#f0f0f0] border border-[#ddd] cursor-pointer text-lg flex items-center justify-center"
+                    title="Back to conversations"
+                  >
+                    <IoIosArrowRoundBack />
+                  </button>
+                  <div
+                    className="flex items-center gap-2.5 cursor-pointer"
+                    onClick={() => {
+                      if (!active.isGroup) {
+                        navigate(`/profile/${getOtherParticipant(active)?._id}`);
+                      }
+                    }}
+                  >
                   {active.isGroup ? (
                     <div className="w-[38px] h-[38px] rounded-full bg-[#6c63ff] flex items-center justify-center text-white text-xl overflow-hidden border-2 border-[#6c63ff]">
                       {active?.groupProfilePic ? (
@@ -1138,6 +1151,7 @@ export default function TestChat() {
                           : `Last seen ${getOtherParticipant(active)?.lastSeen ? new Date(getOtherParticipant(active)?.lastSeen).toLocaleDateString() : "offline"}`}
                       </div>
                     )}
+                  </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1761,16 +1775,15 @@ export default function TestChat() {
                         <div className="w-9 h-9 rounded-full bg-[#6c63ff] flex items-center justify-center text-white text-base shrink-0 overflow-hidden border border-[#6c63ff]">
                           {conv.groupProfilePic ? (
                             <img
-                      // src={finalUrl}
-                      src={getFullUrl(conv.groupProfilePic)}
-                      alt="avatar"
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src =
-                          "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg";
-                      }}
-                    />
+                              src={getFullUrl(conv.groupProfilePic)}
+                              alt="avatar"
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src =
+                                  "https://i.pinimg.com/1200x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg";
+                              }}
+                            />
                           ) : (
                             <span>#</span>
                           )}
