@@ -531,7 +531,7 @@ const PostCard = ({ post }) => {
 
     if (mediaItem?.video?.variants) {
       const v = mediaItem.video.variants;
-      const videoPath = v["720p"] || v["360p"] || v["1080p"];
+      const videoPath = v["360p"] || v["720p"] || v["1080p"];
       if (videoPath) return getImageUrl(videoPath);
     }
     if (mediaItem?.video?.thumbnail) return getImageUrl(mediaItem.video.thumbnail);

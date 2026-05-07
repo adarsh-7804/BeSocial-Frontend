@@ -327,7 +327,7 @@ const avatarSrc = getImageUrl(profile?.avatar);
         coverInputRef.current.value =""
       }
     } catch (err) {
-      console.log("Upload error:", err);
+      // console.log("Upload error:", err);
       toast.error("Upload failed");
     }
   };
@@ -360,7 +360,7 @@ const avatarSrc = getImageUrl(profile?.avatar);
         setSaved(true);
         setIsEditing(false);
         setTimeout(() => setSaved(false), 2500);
-        console.log("SENDING:", profile.firstName, profile.lastName);
+        // console.log("SENDING:", profile.firstName, profile.lastName);
       } else {
         setSaveError(result.payload);
       }

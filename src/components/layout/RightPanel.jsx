@@ -27,11 +27,11 @@ const RightPanel = () => {
 
   useEffect(() => {
     dispatch(fetchSuggestions());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchSuggestions());
-  }, [currentUser?.friends?.length, currentUser?.friendRequestsSent?.length]);
+  }, [
+    dispatch,
+    currentUser?.friends?.length,
+    currentUser?.friendRequestsSent?.length,
+  ]);
 
   const handleSuggestionSent = (userId) => {
     setExcludedIds((prev) => new Set([...prev, userId.toString()]));
