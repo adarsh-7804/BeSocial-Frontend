@@ -73,9 +73,9 @@ export default function UserDatalist({ profile }) {
   }, [id, dispatch]);
 
   useEffect(() => {
-    if (isOwnProfile && currentUser?._id) {
-      dispatch(getProfile());
-    }
+    // if (isOwnProfile && currentUser?._id) {
+      // dispatch(getProfile());
+    // }
   }, [currentUser?.friends?.length, isOwnProfile, dispatch]);
 
   // Posts
